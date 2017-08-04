@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayScene : MonoBehaviour
 {
@@ -16,9 +17,11 @@ public class GameplayScene : MonoBehaviour
     private float m_segmentDistance;
     private float m_totalTime;
 
-    private float m_speed = 10.00f;
-    private float m_g = 7.0f;
+    private float m_speed = 20.00f;
+    private float m_g = 9.8f;
     private float m_segmentTime;
+
+    private bool m_started = false;
 
     private void Start()
     {
@@ -33,6 +36,9 @@ public class GameplayScene : MonoBehaviour
             Jump();
         }
 
+        if (!m_started)
+            return;
+
         // m_segmentDistance += m_speed * Time.deltaTime;
         m_segmentTime += Time.deltaTime;
 
@@ -42,7 +48,7 @@ public class GameplayScene : MonoBehaviour
 
         float a = Mathf.Atan((v * v - Mathf.Sqrt(v*v*v*v - m_g * (m_g * d * d + 2 * y * v * v))) / (m_g * d));
         // a = Mathf.Deg2Rad * 20.0f;
-        Debug.LogFormat("a = {0}", a);
+        // Debug.LogFormat("a = {0}", a);
 
         float cos_a = Mathf.Cos(a);
         float v_cos_a = v * cos_a;
@@ -58,8 +64,6 @@ public class GameplayScene : MonoBehaviour
                 x * Mathf.Tan(a) -
                 ((m_g * x * x)) / (2 * v_cos_a * v_cos_a);
 
-        Debug.LogFormat("a = {0}, totalTime = {1}, m_segmentDistance = {2}, m_segmentTime = {3}, m_distance = {4}", a, m_totalTime, m_segmentDistance, m_segmentTime, m_distance);
-
         var position = new Vector3(0, h, m_startPosition.z + m_segmentDistance);
 
         m_dude.transform.position = position;
@@ -67,6 +71,14 @@ public class GameplayScene : MonoBehaviour
 
     public void Jump()
     {
+        m_started = true;
+
+        if (m_nextPlatformIndex == m_track.GetSegmentCount() - 1)
+        {
+            SceneManager.LoadScene("Gameplay");
+            return;
+        }
+
         var platform = m_track.GetPlatform(m_nextPlatformIndex);
         var next_platform = m_track.GetPlatform(m_nextPlatformIndex + 1);
 

@@ -10,12 +10,12 @@ public class TrackGenerator
 
         var position = new Vector3(0, 0, 0);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 20; i++)
         {
             var platform = GeneratePlatform(platformPrefab, position);
             track.AddPlatform(platform);
 
-            position.z += 10.0f;
+            position.z += 20.0f;
         }
 
         return track;

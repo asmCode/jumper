@@ -18,4 +18,9 @@ public class Track
 
         return m_platforms[index];
     }
+
+    public int GetSegmentCount()
+    {
+        return m_platforms.Count;
+    }
 }
