@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class Track
 {
-    private List<Platform> m_platforms = new List<Platform>();
+    private List<JumpPoint> m_jumpPoints = new List<JumpPoint>();
 
-    public void AddPlatform(Platform platform)
+    public void AddJumpPoint(JumpPoint jumpPoint)
     {
-        m_platforms.Add(platform);
+        m_jumpPoints.Add(jumpPoint);
     }
 
-    public Platform GetPlatform(int index)
+    public JumpPoint GetJumpPoint(int index)
     {
-        if (index >= m_platforms.Count)
+        if (index >= m_jumpPoints.Count)
             return null;
 
-        return m_platforms[index];
+        return m_jumpPoints[index];
     }
 
-    public int GetSegmentCount()
+    public int GetJumpPointCount()
     {
-        return m_platforms.Count;
+        return m_jumpPoints.Count;
     }
 }

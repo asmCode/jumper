@@ -11,17 +11,14 @@ public class GameplayScene : MonoBehaviour
     private Track m_track;
     private int m_nextPlatformIndex = 0;
 
-    private Vector3 m_startPosition;
-    private Vector3 m_endPosition;
-    private float m_distance;
-    private float m_segmentDistance;
-    private float m_totalTime;
-
-    private float m_speed = 20.00f;
-    private float m_g = 9.8f;
+    private float m_speed = 21.415f;
     private float m_segmentTime;
 
     private bool m_started = false;
+    private TrackDebugInfo m_trackDebugInfo = new TrackDebugInfo();
+
+    private JumpPoint m_beginJumpPoint;
+    private JumpPoint m_endJumpPoint;
 
     private void Start()
     {
@@ -31,6 +28,8 @@ public class GameplayScene : MonoBehaviour
 
     private void Update()
     {
+        m_trackDebugInfo.DrawTrack(m_track, m_speed);
+
         if (Input.GetMouseButtonDown(0))
         {
             Jump();
@@ -39,33 +38,16 @@ public class GameplayScene : MonoBehaviour
         if (!m_started)
             return;
 
-        // m_segmentDistance += m_speed * Time.deltaTime;
         m_segmentTime += Time.deltaTime;
 
-        float d = m_distance;
-        float v = m_speed;
-        float y = m_endPosition.y - m_startPosition.y;
+        float angle = Physics.GetAngle(m_speed, m_beginJumpPoint.Distance, m_beginJumpPoint.HeightDifference);
+        float totalTime = Physics.GetTotalTime(m_beginJumpPoint.Distance, m_speed, angle);
+        float segmentDistance = Physics.GetDistanceAtTime(m_segmentTime, totalTime, m_beginJumpPoint.Distance);
 
-        float a = Mathf.Atan((v * v - Mathf.Sqrt(v*v*v*v - m_g * (m_g * d * d + 2 * y * v * v))) / (m_g * d));
-        // a = Mathf.Deg2Rad * 20.0f;
-        // Debug.LogFormat("a = {0}", a);
+        float h = Physics.GetHeightAtDistance(0, angle, segmentDistance, m_speed);
 
-        float cos_a = Mathf.Cos(a);
-        float v_cos_a = v * cos_a;
-
-        m_totalTime = d / (v_cos_a);
-
-        m_segmentDistance = (m_segmentTime / m_totalTime) * m_distance;
-
-        float x = m_segmentDistance;
-
-        float h =
-                m_startPosition.y +
-                x * Mathf.Tan(a) -
-                ((m_g * x * x)) / (2 * v_cos_a * v_cos_a);
-
-        var position = new Vector3(0, h, m_startPosition.z + m_segmentDistance);
-
+        var position = m_beginJumpPoint.Position + m_beginJumpPoint.Direction * segmentDistance;
+        position.y = m_beginJumpPoint.Position.y + h;
         m_dude.transform.position = position;
     }
 
@@ -73,22 +55,17 @@ public class GameplayScene : MonoBehaviour
     {
         m_started = true;
 
-        if (m_nextPlatformIndex == m_track.GetSegmentCount() - 1)
+        if (m_nextPlatformIndex == m_track.GetJumpPointCount() - 1)
         {
             SceneManager.LoadScene("Gameplay");
             return;
         }
 
-        var platform = m_track.GetPlatform(m_nextPlatformIndex);
-        var next_platform = m_track.GetPlatform(m_nextPlatformIndex + 1);
+        m_beginJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex);
+        m_endJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex + 1);
 
         m_nextPlatformIndex++;
 
-        m_startPosition = platform.transform.position;
-        m_endPosition = next_platform.transform.position;
-        m_distance = Vector3.Distance(m_startPosition, m_endPosition);
-
-        m_segmentDistance = 0.0f;
         m_segmentTime = 0.0f;
     }
 }

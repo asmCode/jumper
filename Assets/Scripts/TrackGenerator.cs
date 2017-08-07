@@ -6,17 +6,40 @@ public class TrackGenerator
 {
     public Track Generate(Platform platformPrefab)
     {
+        var jumpPointPosition = new Vector3(0, 0, 0);
+
+        List<Vector3> jumpPointPositions = new List<Vector3>();
+
+        int pointCount = 20;
+
+        for (int i = 0; i < pointCount; i++)
+        {
+            jumpPointPositions.Add(jumpPointPosition);
+
+            jumpPointPosition.x += 2 * i * ((i % 2 == 0) ? -1 : 1);
+            jumpPointPosition.z += 20.0f;
+            jumpPointPosition.y += 5.0f;
+        }
+
         Track track = new Track();
 
-        var position = new Vector3(0, 0, 0);
-
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < pointCount; i++)
         {
-            var platform = GeneratePlatform(platformPrefab, position);
-            track.AddPlatform(platform);
+            Vector3? prevPosition = null;
+            if (i > 0)
+                prevPosition = jumpPointPositions[i - 1];
 
-            position.z += 20.0f;
+            Vector3 position = jumpPointPositions[i];
+
+            Vector3? nextPosition = null;
+            if (i < pointCount - 1)
+                nextPosition = jumpPointPositions[i + 1];
+
+            var jumpPoint = new JumpPoint(position, prevPosition, nextPosition);
+            track.AddJumpPoint(jumpPoint);
         }
+
+        CreateVisualTrack(track, platformPrefab);
 
         return track;
     }
@@ -26,5 +49,13 @@ public class TrackGenerator
         var platform = GameObject.Instantiate(platformPrefab, position, Quaternion.identity);
 
         return platform;
+    }
+
+    private void CreateVisualTrack(Track track, Platform platformPrefab)
+    {
+        for (int i = 0; i < track.GetJumpPointCount(); i++)
+        {
+            GeneratePlatform(platformPrefab, track.GetJumpPoint(i).Position);
+        }
     }
 }
