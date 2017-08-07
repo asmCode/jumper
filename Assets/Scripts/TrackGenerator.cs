@@ -16,9 +16,13 @@ public class TrackGenerator
         {
             jumpPointPositions.Add(jumpPointPosition);
 
-            jumpPointPosition.x += 2 * i * ((i % 2 == 0) ? -1 : 1);
-            jumpPointPosition.z += 20.0f;
-            jumpPointPosition.y += 5.0f;
+            //jumpPointPosition.x += 2 * i * ((i % 2 == 0) ? -1 : 1);
+            //jumpPointPosition.z += 20.0f;
+            //jumpPointPosition.y += 5.0f;
+
+            jumpPointPosition.x += Random.Range(-5.0f, 5.0f);
+            jumpPointPosition.z += Random.Range(20.0f, 40.0f);
+            jumpPointPosition.y += Random.Range(-5.0f, 5.0f);
         }
 
         Track track = new Track();

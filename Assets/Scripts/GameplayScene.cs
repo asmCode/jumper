@@ -19,6 +19,9 @@ public class GameplayScene : MonoBehaviour
 
     private JumpPoint m_beginJumpPoint;
     private JumpPoint m_endJumpPoint;
+    private JumpPoint m_endendJumpPoint;
+
+    private Vector3 m_targetLookVector;
 
     private void Start()
     {
@@ -49,6 +52,14 @@ public class GameplayScene : MonoBehaviour
         var position = m_beginJumpPoint.Position + m_beginJumpPoint.Direction * segmentDistance;
         position.y = m_beginJumpPoint.Position.y + h;
         m_dude.transform.position = position;
+
+        Vector3 lookVector = m_endJumpPoint.Position - m_dude.transform.position;
+        lookVector.Normalize();
+
+        m_dude.transform.LookAt(Vector3.Lerp(m_endJumpPoint.Position, m_endendJumpPoint.Position, m_segmentTime / totalTime));
+
+        // m_dude.transform.forward = Vector3.RotateTowards(m_dude.transform.forward, lookVector, 5.0f * Time.deltaTime, 10 * Time.deltaTime);
+        //Vector3.SmoothDamp()
     }
 
     public void Jump()
@@ -63,6 +74,10 @@ public class GameplayScene : MonoBehaviour
 
         m_beginJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex);
         m_endJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex + 1);
+        if (m_nextPlatformIndex < m_track.GetJumpPointCount() - 2)
+            m_endendJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex + 2);
+        else
+            m_endendJumpPoint = m_endJumpPoint;
 
         m_nextPlatformIndex++;
 
