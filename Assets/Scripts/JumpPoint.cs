@@ -12,6 +12,14 @@ public class JumpPoint
         HeightDifference = target.y;
     }
 
+    public JumpPoint(Vector3 position, Vector3 direction, float distance, float heightDifference)
+    {
+        Position = position;
+        Direction = direction;
+        Distance = distance;
+        HeightDifference = heightDifference;
+    }
+
     public Vector3 Position
     {
         get;

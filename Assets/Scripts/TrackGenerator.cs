@@ -12,6 +12,8 @@ public class TrackGenerator
 
         int pointCount = 20;
 
+        Random.InitState(10);
+
         for (int i = 0; i < pointCount; i++)
         {
             jumpPointPositions.Add(jumpPointPosition);
