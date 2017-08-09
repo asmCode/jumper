@@ -26,6 +26,7 @@ public class Landed : JumperState
     {
         if (m_dude.m_nextPlatformIndex == m_dude.m_track.GetJumpPointCount() - 1)
         {
+            m_dude.StopRun();
             SceneManager.LoadScene("Gameplay");
             return;
         }

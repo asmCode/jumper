@@ -26,5 +26,6 @@ public class Jumping : JumperState
 
     public override void Jump()
     {
+        m_dude.JumpToNextSegment();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TrackGenerator
 {
-    public Track Generate(Platform platformPrefab)
+    public Track Generate(Platform platformPrefab, int seed)
     {
         var jumpPointPosition = new Vector3(0, 0, 0);
 
@@ -12,7 +12,7 @@ public class TrackGenerator
 
         int pointCount = 20;
 
-        Random.InitState(10);
+        Random.InitState(seed);
 
         for (int i = 0; i < pointCount; i++)
         {

@@ -25,5 +25,6 @@ public class PrepareToStart : JumperState
     {
         m_dude.SetState(new Jumping(m_dude));
         m_dude.JumpToNextSegment();
+        m_dude.StartRun();
     }
 }

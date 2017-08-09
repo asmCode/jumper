@@ -7,6 +7,7 @@ public class GameplayScene : MonoBehaviour
 {
     public Platform m_platformPrefab;
     public Dude m_dude;
+    public static int m_seed = 10;
 
     private Track m_track;
 
@@ -14,10 +15,15 @@ public class GameplayScene : MonoBehaviour
 
     private Vector3 m_targetLookVector;
 
+    public void UiEvent_SetSeed(int seed)
+    {
+        m_seed = seed;
+    }
+
     private void Start()
     {
         TrackGenerator trackGenerator = new TrackGenerator();
-        m_track = trackGenerator.Generate(m_platformPrefab);
+        m_track = trackGenerator.Generate(m_platformPrefab, m_seed);
 
         m_dude.SetTrack(m_track);
     }
@@ -37,5 +43,15 @@ public class GameplayScene : MonoBehaviour
 
     public void Jump()
     {
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene("Gameplay");
+    }
+
+    public void ResetRecord()
+    {
+        PlayerPrefs.SetFloat("best_time", 0.0f);
     }
 }

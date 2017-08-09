@@ -9,15 +9,19 @@ public class Dude : MonoBehaviour
 
     private JumpPoint m_beginJumpPoint;
     private JumpPoint m_endJumpPoint;
+    private Vector3 nextPlatformPosition;
     private JumpPoint m_endendJumpPoint;
 
     public int m_nextPlatformIndex = 0;
 
     private float m_speed = 21.415f;
-    private float m_jumpSpeed = 21.415f;
+    public float m_jumpSpeed = 21.415f;
     private float m_landingSpeed = 10.0f;
     private float m_landingAngle = 60.0f * Mathf.Deg2Rad;
     private Vector3 m_lookTarget;
+
+    private float m_runTime = 0.0f;
+    private bool m_isRunning = false;
 
     private Vector3 m_lookTargetVelocity;
 
@@ -26,7 +30,19 @@ public class Dude : MonoBehaviour
         get { return m_speed; }
     }
 
+    public static float LastTime
+    {
+        get;
+        private set;
+    }
+
     public float SegmentTotalTime
+    {
+        get;
+        private set;
+    }
+
+    public float SpeedChange
     {
         get;
         private set;
@@ -42,6 +58,38 @@ public class Dude : MonoBehaviour
     {
         get;
         private set;
+    }
+
+    public float JumpAccuracy
+    {
+        get;
+        private set;
+    }
+
+    public float RunTime
+    {
+        get { return m_runTime; }
+    }
+
+    public float BestTime
+    {
+        get { return PlayerPrefs.GetFloat("best_time", 0.0f); }
+    }
+
+    public void StartRun()
+    {
+        m_runTime = 0.0f;
+        m_isRunning = true;
+    }
+
+    public void StopRun()
+    {
+        float bestTime = PlayerPrefs.GetFloat("best_time", 0.0f);
+        if (m_runTime < bestTime || bestTime == 0)
+            PlayerPrefs.SetFloat("best_time", m_runTime);
+        m_isRunning = false;
+
+        LastTime = m_runTime;
     }
 
     public void SetTrack(Track track)
@@ -72,10 +120,43 @@ public class Dude : MonoBehaviour
     private void Update()
     {
         m_state.Update(Time.deltaTime);
+
+        if (m_isRunning)
+            m_runTime += Time.deltaTime;
     }
 
     public void JumpToNextSegment()
     {
+        if (m_endJumpPoint != null)
+        {
+            JumpAccuracy = Vector3.Distance(nextPlatformPosition, transform.position);
+
+            float old_speed = m_jumpSpeed;
+
+            if (JumpAccuracy < 0.3f)
+            {
+                m_jumpSpeed += 2.0f;
+            }
+            else if (JumpAccuracy < 0.5f)
+            {
+                m_jumpSpeed += 1.0f;
+            }
+            else if (JumpAccuracy < 0.7f)
+            {
+                m_jumpSpeed -= 0.0f;
+            }
+            else if (JumpAccuracy < 1.0f)
+            {
+                m_jumpSpeed -= 1.0f;
+            }
+            else if (JumpAccuracy >= 1.5f)
+            {
+                m_jumpSpeed -= 3.0f;
+            }
+
+            SpeedChange = m_jumpSpeed - old_speed;
+        }
+
         m_speed = m_jumpSpeed;
 
         m_beginJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex);
@@ -84,7 +165,10 @@ public class Dude : MonoBehaviour
         m_beginJumpPoint = new JumpPoint(transform.position, null, m_endJumpPoint.Position);
 
         if (m_nextPlatformIndex < m_track.GetJumpPointCount() - 2)
+        {
             m_endendJumpPoint = m_track.GetJumpPoint(m_nextPlatformIndex + 2);
+            nextPlatformPosition = m_endJumpPoint.Position;
+        }
         else
             m_endendJumpPoint = m_endJumpPoint;
 
@@ -93,7 +177,14 @@ public class Dude : MonoBehaviour
         SegmentTime = 0.0f;
 
         SegmentAngle = Physics.GetAngle(m_speed, m_beginJumpPoint.Distance, m_beginJumpPoint.HeightDifference);
+        if (float.IsNaN(SegmentAngle))
+            SegmentAngle = 45 * Mathf.Deg2Rad;
         SegmentTotalTime = Physics.GetTotalTime(m_beginJumpPoint.Distance, m_speed, SegmentAngle);
+
+        if (float.IsNaN(SegmentTotalTime))
+        {
+            int d = 0;
+        }
 
         m_lookTarget = m_endJumpPoint.Position;
     }
@@ -110,7 +201,7 @@ public class Dude : MonoBehaviour
 
         SegmentTotalTime = Physics.GetTotalTime(m_beginJumpPoint.Distance, m_speed, SegmentAngle);
 
-        m_lookTarget = transform.position + transform.forward * 100.0f;
+        m_lookTarget = transform.position + transform.forward * 1000.0f;
     }
 
     public void UpdateJump()
@@ -123,6 +214,11 @@ public class Dude : MonoBehaviour
 
         var position = m_beginJumpPoint.Position + m_beginJumpPoint.Direction * segmentDistance;
         position.y = m_beginJumpPoint.Position.y + h;
+
+        if (float.IsNaN(position.x))
+        {
+            int d = 0;
+        }
         transform.position = position;
 
         Vector3 lookVector = m_endJumpPoint.Position - transform.position;
