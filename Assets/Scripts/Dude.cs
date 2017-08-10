@@ -11,6 +11,7 @@ public class Dude : MonoBehaviour
     private JumpPoint m_endJumpPoint;
     private Vector3 nextPlatformPosition;
     private JumpPoint m_endendJumpPoint;
+    public Vector3 m_lookTargetSmooth;
 
     public int m_nextPlatformIndex = 0;
 
@@ -229,13 +230,9 @@ public class Dude : MonoBehaviour
         }
         transform.position = position;
 
-        Vector3 lookVector = m_endJumpPoint.Position - transform.position;
-        lookVector.Normalize();
-
-        // transform.LookAt(Vector3.Lerp(m_endJumpPoint.Position, m_endendJumpPoint.Position, SegmentTime / SegmentTotalTime));
-
         Vector3 currentLookTarget = transform.position + transform.forward * m_beginJumpPoint.Distance;
         Vector3 newLookTarget = Vector3.SmoothDamp(currentLookTarget, m_lookTarget, ref m_lookTargetVelocity, 0.95f);
+        m_lookTargetSmooth = newLookTarget;
 
         transform.LookAt(newLookTarget);
     }
