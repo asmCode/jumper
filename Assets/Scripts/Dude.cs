@@ -25,6 +25,13 @@ public class Dude : MonoBehaviour
 
     private Vector3 m_lookTargetVelocity;
 
+    public static float difficulty = 1.0f;
+
+    public void SetDifficulty(float diff)
+    {
+        difficulty = diff;
+    }
+
     public float Speed
     {
         get { return m_speed; }
@@ -130,6 +137,7 @@ public class Dude : MonoBehaviour
         if (m_endJumpPoint != null)
         {
             JumpAccuracy = Vector3.Distance(nextPlatformPosition, transform.position);
+            JumpAccuracy *= difficulty;
 
             float old_speed = m_jumpSpeed;
 

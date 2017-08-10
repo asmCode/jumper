@@ -22,6 +22,8 @@ public class GameplayScene : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
+
         TrackGenerator trackGenerator = new TrackGenerator();
         m_track = trackGenerator.Generate(m_platformPrefab, m_seed);
 
