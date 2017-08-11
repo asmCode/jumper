@@ -14,6 +14,10 @@ public class Dude2 : MonoBehaviour
 
     private int platformIndex;
     public Platform[] platforms;
+    public float m_horizontalSpeed;
+    public float m_horizontalPosition;
+
+    public Vector3 m_jumpPosition;
 
     // Use this for initialization
     void Start()
@@ -34,13 +38,22 @@ public class Dude2 : MonoBehaviour
         if (!m_started)
             return;
 
-        m_velocity += Vector3.down * Physics.G * Time.deltaTime;
-        m_velocity += Vector3.back * Time.deltaTime;
-        if (m_velocity.z < 0)
-            m_velocity.z = 0;
+        //m_velocity += Vector3.down * Physics.G * Time.deltaTime;
+        ////m_velocity += Vector3.back * Time.deltaTime;
+        ////if (m_velocity.z < 0)
+        ////    m_velocity.z = 0;
 
-        var position = transform.position;
-        position += m_velocity * Time.deltaTime;
+        //var position = transform.position;
+        //position += m_velocity * Time.deltaTime;
+        //transform.position = position;
+
+        m_horizontalPosition += m_horizontalSpeed * Time.deltaTime;
+        float height = Physics.GetHeightAtDistance(0, 45.0f * Mathf.Deg2Rad, m_horizontalPosition, m_jumpSpeed);
+
+        var position = m_jumpPosition;
+        position.z += m_horizontalPosition;
+        position.y += height;
+
         transform.position = position;
 
         m_lookTargetSmooth = transform.position + transform.forward * 10;
@@ -52,6 +65,12 @@ public class Dude2 : MonoBehaviour
     private void Jump()
     {
         float speed = m_jumpSpeed;
+
+        m_jumpPosition = transform.position;
+
+        Vector3 jumpDirection = new Vector3(0, 1, 1).normalized * m_jumpSpeed;
+        m_horizontalSpeed = jumpDirection.z;
+        m_horizontalPosition = 0.0f;
 
         m_velocity = new Vector3(0, 1, 1);
         m_velocity.Normalize();
