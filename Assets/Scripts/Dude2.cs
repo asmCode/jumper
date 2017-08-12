@@ -8,6 +8,8 @@ public class Dude2 : MonoBehaviour
     private float m_jumpSpeed = 8.0f;
     private bool m_started = false;
 
+    public bool camJump = true;
+
     public Vector3 m_lookTargetSmooth;
     private Vector3 m_lookTarget;
     private Vector3 m_lookTargetVelocity;
@@ -32,9 +34,15 @@ public class Dude2 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            m_started = true;
-            RecalculateLookTarget();
-            Jump();
+            if (camJump)
+            {
+
+                m_started = true;
+                RecalculateLookTarget();
+                Jump();
+
+                camJump = false;
+            }
         }
 
         if (!m_started)
@@ -95,6 +103,8 @@ public class Dude2 : MonoBehaviour
         RecalculateLookTarget();
 
         Jump();
+
+        camJump = true;
     }
 
     private void RecalculateLookTarget()
