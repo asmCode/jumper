@@ -68,13 +68,18 @@ public class Dude2 : MonoBehaviour
 
         m_jumpPosition = transform.position;
 
-        Vector3 jumpDirection = new Vector3(0, 1, 1).normalized * m_jumpSpeed;
-        m_horizontalSpeed = jumpDirection.z;
-        m_horizontalPosition = 0.0f;
+        Vector3 platformPosition = platforms[platformIndex].transform.position;
 
-        m_velocity = new Vector3(0, 1, 1);
-        m_velocity.Normalize();
-        m_velocity *= speed;
+        Vector3 direction = platformPosition - m_jumpPosition;
+        direction.y = 0.0f;
+        direction.Normalize();
+
+        Vector3 axis = Vector3.Cross(Vector3.up, direction);
+        var q = Quaternion.AngleAxis(-45.0f, axis);
+        var jumpDirection = q * direction;
+
+        m_horizontalSpeed = jumpDirection.z * m_jumpSpeed;
+        m_horizontalPosition = 0.0f;
     }
 
     private void OnTriggerEnter(Collider collider)
