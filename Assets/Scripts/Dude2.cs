@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dude2 : MonoBehaviour
 {
     private Vector3 m_velocity;
-    private float m_jumpSpeed = 12.0f;
+    private float m_jumpSpeed = 8.0f;
     private bool m_started = false;
 
     public Vector3 m_lookTargetSmooth;
@@ -14,8 +14,10 @@ public class Dude2 : MonoBehaviour
 
     private int platformIndex;
     public Platform[] platforms;
+
     public float m_horizontalSpeed;
-    public float m_horizontalPosition;
+    public float m_horizontalDistance;
+    public Vector3 m_horizontalDirection;
 
     public Vector3 m_jumpPosition;
 
@@ -47,11 +49,11 @@ public class Dude2 : MonoBehaviour
         //position += m_velocity * Time.deltaTime;
         //transform.position = position;
 
-        m_horizontalPosition += m_horizontalSpeed * Time.deltaTime;
-        float height = Physics.GetHeightAtDistance(0, 45.0f * Mathf.Deg2Rad, m_horizontalPosition, m_jumpSpeed);
+        m_horizontalDistance += m_horizontalSpeed * Time.deltaTime;
+        float height = Physics.GetHeightAtDistance(0, 45.0f * Mathf.Deg2Rad, m_horizontalDistance, m_jumpSpeed);
 
         var position = m_jumpPosition;
-        position.z += m_horizontalPosition;
+        position += m_horizontalDirection * m_horizontalDistance;
         position.y += height;
 
         transform.position = position;
@@ -70,16 +72,16 @@ public class Dude2 : MonoBehaviour
 
         Vector3 platformPosition = platforms[platformIndex].transform.position;
 
-        Vector3 direction = platformPosition - m_jumpPosition;
-        direction.y = 0.0f;
-        direction.Normalize();
+        m_horizontalDirection = platformPosition - m_jumpPosition;
+        m_horizontalDirection.y = 0.0f;
+        m_horizontalDirection.Normalize();
 
-        Vector3 axis = Vector3.Cross(Vector3.up, direction);
-        var q = Quaternion.AngleAxis(-45.0f, axis);
-        var jumpDirection = q * direction;
+        //Vector3 axis = Vector3.Cross(Vector3.up, m_horizontalDirection);
+        //var q = Quaternion.AngleAxis(-45.0f, axis);
+        //var jumpDirection = q * m_horizontalDirection;
 
-        m_horizontalSpeed = jumpDirection.z * m_jumpSpeed;
-        m_horizontalPosition = 0.0f;
+        m_horizontalDistance = 0.0f;
+        m_horizontalSpeed = m_jumpSpeed * Mathf.Cos(45.0f * Mathf.Deg2Rad);
     }
 
     private void OnTriggerEnter(Collider collider)

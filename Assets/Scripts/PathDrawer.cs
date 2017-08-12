@@ -10,9 +10,6 @@ public class PathDrawer : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, 1);
-
         for (int i = 0; i < m_platforms.Length - 1; i++)
         {
             // Gizmos.DrawLine(
@@ -57,7 +54,7 @@ public class PathDrawer : MonoBehaviour
         direction2D.Normalize();
         float angle = Vector3.Angle(direction2D, direction) * Mathf.Deg2Rad;
 
-        float drawDistance = 20.0f;
+        float drawDistance = 10.0f;
 
         int segments = 20;
         float distancePerSegment = drawDistance / segments;
