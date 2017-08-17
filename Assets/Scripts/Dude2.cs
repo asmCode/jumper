@@ -21,6 +21,7 @@ public class Dude2 : MonoBehaviour
     public float m_horizontalSpeed;
     public float m_horizontalDistance;
     public Vector3 m_horizontalDirection;
+    public void
 
     public Vector3 m_jumpPosition;
 
@@ -40,7 +41,7 @@ public class Dude2 : MonoBehaviour
 
                 m_started = true;
                 RecalculateLookTarget();
-                Jump(8.0f, 45.0f * Mathf.Deg2Rad);
+                Jump( 8.0f, 45.0f * Mathf.Deg2Rad);
 
                 camJump = false;
             }
@@ -48,15 +49,6 @@ public class Dude2 : MonoBehaviour
 
         if (!m_started)
             return;
-
-        //m_velocity += Vector3.down * Physics.G * Time.deltaTime;
-        ////m_velocity += Vector3.back * Time.deltaTime;
-        ////if (m_velocity.z < 0)
-        ////    m_velocity.z = 0;
-
-        //var position = transform.position;
-        //position += m_velocity * Time.deltaTime;
-        //transform.position = position;
 
         m_horizontalDistance += m_horizontalSpeed * Time.deltaTime;
         float height = Physics.GetHeightAtDistance(0, m_jumpAngle, m_horizontalDistance, m_jumpSpeed);
@@ -73,25 +65,19 @@ public class Dude2 : MonoBehaviour
         transform.LookAt(m_lookTargetSmooth);
     }
 
-    private void Jump(float speed, float angle)
+    private void Jump(Vector3 targetPlatformPosition, float speed, float angle)
     {
+        m_jumpSpeed = speed;
+        m_jumpAngle = angle;
+        
         m_jumpPosition = transform.position;
 
-        Vector3 platformPosition = platforms[platformIndex].transform.position;
-
-        m_horizontalDirection = platformPosition - m_jumpPosition;
+        m_horizontalDirection = targetPlatformPosition - m_jumpPosition;
         m_horizontalDirection.y = 0.0f;
         m_horizontalDirection.Normalize();
 
-        //Vector3 axis = Vector3.Cross(Vector3.up, m_horizontalDirection);
-        //var q = Quaternion.AngleAxis(-45.0f, axis);
-        //var jumpDirection = q * m_horizontalDirection;
-
         m_horizontalDistance = 0.0f;
         m_horizontalSpeed = m_jumpSpeed * Mathf.Cos(angle);
-
-        m_jumpSpeed = speed;
-        m_jumpAngle = angle;
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -111,7 +97,7 @@ public class Dude2 : MonoBehaviour
 
         RecalculateLookTarget();
 
-        Jump(jumpPoimt.GetJumpSpeed(), jumpPoimt.GetJumpAngle());
+        Jump(jumpPoimt.Position, jumpPoimt.GetJumpSpeed(), jumpPoimt.GetJumpAngle());
 
         camJump = true;
     }
