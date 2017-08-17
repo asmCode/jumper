@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class JumpPointView : MonoBehaviour
 {
-	public Platform m_nextPlatfrom;
+	public JumpPointView m_nextJumpPoint;
 
-	public Vector3 GetDirection()
+	public Vector3 Position
 	{
-		return (m_nextPlatfrom.transform.position - transform.position).normalized;
+		get { return transform.position; }
 	}
 
-	public Vector3 GetDirection2D()
+	public virtual Vector3 GetDirection()
+	{
+		return (m_nextJumpPoint.Position - Position).normalized;
+	}
+
+	public virtual Vector3 GetDirection2D()
 	{
 		var direction = GetDirection();
 		direction.y = 0;
 		return direction.normalized;
+	}
+
+	public virtual float GetJumpAngle()
+	{
+		return Mathf.PI / 4.0f;
 	}
 }

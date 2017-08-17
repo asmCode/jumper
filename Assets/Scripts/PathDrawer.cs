@@ -5,54 +5,54 @@ using UnityEngine;
 public class PathDrawer : MonoBehaviour
 {
     public float m_airJumpSpeeed = 12.0f;
-    public Platform[] m_platforms;
-    public JumpPointView[] m_airJumpPoints;
+    public JumpPointView[] m_jumpPoints;
 
     void OnDrawGizmos()
     {
-        for (int i = 0; i < m_platforms.Length - 1; i++)
+        if (m_jumpPoints == null || m_jumpPoints.Length < 2)
+            return;
+
+        var startPoint = m_jumpPoints[0];
+        var endPoint = startPoint.m_nextJumpPoint;
+
+        while (endPoint != null)
         {
-            // Gizmos.DrawLine(
-            //     m_platforms[i].transform.position,
-            //     m_platforms[i + 1].transform.position);
-
-            Vector3 direction = m_platforms[i + 1].transform.position - m_platforms[i].transform.position;
-            direction.y = 0;
-            direction.Normalize();
-
-            Vector3 axis = Vector3.Cross(Vector3.up, direction);
-            var q = Quaternion.AngleAxis(-45.0f, axis);
-            direction = q * direction;
+            Gizmos.DrawLine(
+                startPoint.Position,
+                endPoint.Position);
 
             DrawJumpTrajectory(
-                m_platforms[i].transform.position,
-                direction,
+                startPoint.Position,
+                startPoint.GetDirection2D(),
+                startPoint.GetJumpAngle(),
                 m_airJumpSpeeed,
                 Color.green);
-        }
 
-        for (int i = 0; i < m_airJumpPoints.Length; i++)
-        {
-            var direction2d = m_airJumpPoints[i].GetDirection2D();
+            startPoint = endPoint;
+            endPoint = endPoint.m_nextJumpPoint;
 
-            Vector3 axis = Vector3.Cross(Vector3.up, direction2d);
-            var q = Quaternion.AngleAxis(-45.0f, axis);
-            var jumpDirectopn = q * direction2d;
+            // Vector3 direction = m_platforms[i + 1].transform.position - m_platforms[i].transform.position;
+            // direction.y = 0;
+            // direction.Normalize();
 
-            DrawJumpTrajectory(
-                m_airJumpPoints[i].transform.position,
-                jumpDirectopn,
-                m_airJumpSpeeed,
-                Color.blue);
+            // Vector3 axis = Vector3.Cross(Vector3.up, direction);
+            // var q = Quaternion.AngleAxis(-45.0f, axis);
+            // direction = q * direction;
+
+            // DrawJumpTrajectory(
+            //     m_platforms[i].transform.position,
+            //     direction,
+            //     m_airJumpSpeeed,
+            //     Color.green);
         }
     }
 
-    private void DrawJumpTrajectory(Vector3 position, Vector3 direction, float speed, Color color)
+    private void DrawJumpTrajectory(Vector3 position, Vector3 direction2D, float angle, float speed, Color color)
     {
-        Vector3 direction2D = direction;
-        direction2D.y = 0.0f;
-        direction2D.Normalize();
-        float angle = Vector3.Angle(direction2D, direction) * Mathf.Deg2Rad;
+        // Vector3 direction2D = direction;
+        // direction2D.y = 0.0f;
+        // direction2D.Normalize();
+        // float angle = Vector3.Angle(direction2D, direction) * Mathf.Deg2Rad;
 
         float drawDistance = 10.0f;
 
