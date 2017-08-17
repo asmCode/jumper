@@ -178,6 +178,8 @@ MonoBehaviour:
   m_nextJumpPoint: {fileID: 1899769545}
   m_nextPlatform: {fileID: 817144120}
   m_airJumpOnDistance: 3.17
+  m_jumpSpeed: 8
+  m_jumpAngle: 0.7853982
 --- !u!4 &199729722 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a,
@@ -280,7 +282,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nextJumpPoint: {fileID: 1198828799}
   m_nextPlatform: {fileID: 2025968358}
-  m_airJumpOnDistance: 0
+  m_airJumpOnDistance: 8.8
+  m_jumpSpeed: 20
+  m_jumpAngle: 1.35
 --- !u!1 &268032464 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1374602334811088, guid: 5ca6e2296abf50f4f95d8706516e253a,
@@ -299,7 +303,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nextJumpPoint: {fileID: 332809809}
   m_nextPlatform: {fileID: 214657066}
-  m_airJumpOnDistance: 0
+  m_airJumpOnDistance: 7.94
+  m_jumpSpeed: 8
+  m_jumpAngle: 0.7853982
 --- !u!4 &269156795 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a,
@@ -401,7 +407,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 332809807}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -23.69, y: -0.1, z: 13.07}
+  m_LocalPosition: {x: -29.451221, y: -1.8135519, z: 18.533691}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1923119309}
@@ -768,7 +774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_nextJumpPoint: {fileID: 1587404268}
   m_nextPlatform: {fileID: 1140723144}
-  m_airJumpOnDistance: 3.36
+  m_airJumpOnDistance: 3.48
+  m_jumpSpeed: 8
+  m_jumpAngle: 0.7853982
 --- !u!114 &900690311 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114120781085069728, guid: 5ca6e2296abf50f4f95d8706516e253a,
@@ -800,6 +808,8 @@ MonoBehaviour:
   m_nextJumpPoint: {fileID: 1401082078}
   m_nextPlatform: {fileID: 268032465}
   m_airJumpOnDistance: 6.44
+  m_jumpSpeed: 8
+  m_jumpAngle: 0.7853982
 --- !u!1001 &1177072996
 Prefab:
   m_ObjectHideFlags: 0
@@ -896,7 +906,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1198828797}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36.47, y: -6.6, z: 25.19}
+  m_LocalPosition: {x: -39.152256, y: 12.827753, z: 33.57126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1923119309}
@@ -960,7 +970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526e769ad48ff3945b211dfbc7474393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_airJumpSpeeed: 8
   m_jumpPoints:
   - {fileID: 519415521}
   - {fileID: 1899769545}
@@ -983,15 +992,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -37.61
+      value: -40.72
       objectReference: {fileID: 0}
     - target: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -8.71
+      value: 13.86
       objectReference: {fileID: 0}
     - target: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 39.41
+      value: 38.47
       objectReference: {fileID: 0}
     - target: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1290,7 +1299,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1587404266}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.6497054, y: 3.76128, z: 3.5776658}
+  m_LocalPosition: {x: -5.722195, y: 3.755595, z: 3.673297}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1923119309}
@@ -1517,6 +1526,8 @@ MonoBehaviour:
   m_nextJumpPoint: {fileID: 0}
   m_nextPlatform: {fileID: 0}
   m_airJumpOnDistance: 0
+  m_jumpSpeed: 8
+  m_jumpAngle: 0.7853982
 --- !u!4 &2045176320 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a,

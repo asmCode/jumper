@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PathDrawer : MonoBehaviour
 {
-    public float m_airJumpSpeeed = 12.0f;
     public JumpPointView[] m_jumpPoints;
 
     void OnDrawGizmos()
@@ -25,7 +24,7 @@ public class PathDrawer : MonoBehaviour
                 startPoint.Position,
                 startPoint.GetDirection2D(),
                 startPoint.GetJumpAngle(),
-                m_airJumpSpeeed,
+                startPoint.GetJumpSpeed(),
                 Color.green);
 
             startPoint = endPoint;
@@ -54,7 +53,7 @@ public class PathDrawer : MonoBehaviour
         // direction2D.Normalize();
         // float angle = Vector3.Angle(direction2D, direction) * Mathf.Deg2Rad;
 
-        float drawDistance = 10.0f;
+        float drawDistance = 20.0f;
 
         int segments = 20;
         float distancePerSegment = drawDistance / segments;

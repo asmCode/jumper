@@ -27,4 +27,9 @@ public class JumpPointView : MonoBehaviour
 	{
 		return Mathf.PI / 4.0f;
 	}
+
+	public virtual float GetJumpSpeed()
+	{
+		return 8.0f;
+	}
 }

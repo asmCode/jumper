@@ -6,6 +6,7 @@ public class Dude2 : MonoBehaviour
 {
     private Vector3 m_velocity;
     private float m_jumpSpeed = 8.0f;
+    private float m_jumpAngle = 8.0f;
     private bool m_started = false;
 
     public bool camJump = true;
@@ -39,7 +40,7 @@ public class Dude2 : MonoBehaviour
 
                 m_started = true;
                 RecalculateLookTarget();
-                Jump();
+                Jump(8.0f, 45.0f * Mathf.Deg2Rad);
 
                 camJump = false;
             }
@@ -58,7 +59,7 @@ public class Dude2 : MonoBehaviour
         //transform.position = position;
 
         m_horizontalDistance += m_horizontalSpeed * Time.deltaTime;
-        float height = Physics.GetHeightAtDistance(0, 45.0f * Mathf.Deg2Rad, m_horizontalDistance, m_jumpSpeed);
+        float height = Physics.GetHeightAtDistance(0, m_jumpAngle, m_horizontalDistance, m_jumpSpeed);
 
         var position = m_jumpPosition;
         position += m_horizontalDirection * m_horizontalDistance;
@@ -72,10 +73,8 @@ public class Dude2 : MonoBehaviour
         transform.LookAt(m_lookTargetSmooth);
     }
 
-    private void Jump()
+    private void Jump(float speed, float angle)
     {
-        float speed = m_jumpSpeed;
-
         m_jumpPosition = transform.position;
 
         Vector3 platformPosition = platforms[platformIndex].transform.position;
@@ -89,7 +88,10 @@ public class Dude2 : MonoBehaviour
         //var jumpDirection = q * m_horizontalDirection;
 
         m_horizontalDistance = 0.0f;
-        m_horizontalSpeed = m_jumpSpeed * Mathf.Cos(45.0f * Mathf.Deg2Rad);
+        m_horizontalSpeed = m_jumpSpeed * Mathf.Cos(angle);
+
+        m_jumpSpeed = speed;
+        m_jumpAngle = angle;
     }
 
     private void OnTriggerEnter(Collider collider)
@@ -98,11 +100,18 @@ public class Dude2 : MonoBehaviour
         if (!platform)
             return;
 
+        if (platform.Visited)
+            return;
+
+        platform.Visited = true;
+
+        var jumpPoimt = platform.GetComponent<JumpPointView>();
+
         platformIndex++;
 
         RecalculateLookTarget();
 
-        Jump();
+        Jump(jumpPoimt.GetJumpSpeed(), jumpPoimt.GetJumpAngle());
 
         camJump = true;
     }

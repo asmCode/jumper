@@ -4,4 +4,9 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
+    public bool Visited
+    {
+        get;
+        set;
+    }
 }
