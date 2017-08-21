@@ -21,14 +21,14 @@ public class Dude2 : MonoBehaviour
     public float m_horizontalSpeed;
     public float m_horizontalDistance;
     public Vector3 m_horizontalDirection;
-    public void
+    public Vector3 m_targetPlatformPosition;
 
     public Vector3 m_jumpPosition;
 
     // Use this for initialization
     void Start()
     {
-
+        m_targetPlatformPosition = platforms[0].transform.position;
     }
 
     // Update is called once per frame
@@ -41,7 +41,7 @@ public class Dude2 : MonoBehaviour
 
                 m_started = true;
                 RecalculateLookTarget();
-                Jump( 8.0f, 45.0f * Mathf.Deg2Rad);
+                Jump(m_targetPlatformPosition, 8.0f, 45.0f * Mathf.Deg2Rad);
 
                 camJump = false;
             }
@@ -95,6 +95,8 @@ public class Dude2 : MonoBehaviour
 
         platformIndex++;
 
+        m_targetPlatformPosition = platforms[platformIndex].transform.position;
+
         RecalculateLookTarget();
 
         Jump(jumpPoimt.Position, jumpPoimt.GetJumpSpeed(), jumpPoimt.GetJumpAngle());
@@ -104,7 +106,7 @@ public class Dude2 : MonoBehaviour
 
     private void RecalculateLookTarget()
     {
-        m_lookTarget = platforms[platformIndex].transform.position;
+        m_lookTarget = m_targetPlatformPosition;
 
         // float distance = (m_lookTarget - transform.position).magnitude;
     }
