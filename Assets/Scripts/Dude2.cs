@@ -15,33 +15,46 @@ public class Dude2 : MonoBehaviour
     private Vector3 m_lookTarget;
     private Vector3 m_lookTargetVelocity;
 
-    private int platformIndex;
     public Platform[] platforms;
 
     public float m_horizontalSpeed;
     public float m_horizontalDistance;
     public Vector3 m_horizontalDirection;
-    public Vector3 m_targetPlatformPosition;
 
     public Vector3 m_jumpPosition;
+
+    public JumpPointView m_prevPlatform;
+    public JumpPointView m_nextPlatform;
 
     // Use this for initialization
     void Start()
     {
-        m_targetPlatformPosition = platforms[0].transform.position;
+        Init();
     }
 
-    // Update is called once per frame
+    private void Init()
+    {
+        var firstPlatformJumpPoint = platforms[0].GetComponent<PlatformJumpPointView>();
+
+        m_prevPlatform = firstPlatformJumpPoint;
+        m_nextPlatform = firstPlatformJumpPoint.m_nextPlatform.GetComponent<JumpPointView>();
+
+        SetLookTarget(m_prevPlatform, m_nextPlatform);
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             if (camJump)
             {
-
-                m_started = true;
-                RecalculateLookTarget();
-                Jump(m_targetPlatformPosition, 8.0f, 45.0f * Mathf.Deg2Rad);
+                if (!m_started)
+                {
+                    Jump(m_prevPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+                    m_started = true;
+                }
+                else
+                    Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
 
                 camJump = false;
             }
@@ -57,11 +70,9 @@ public class Dude2 : MonoBehaviour
         position += m_horizontalDirection * m_horizontalDistance;
         position.y += height;
 
+        UpdateSmoothLookTarget();
+
         transform.position = position;
-
-        m_lookTargetSmooth = transform.position + transform.forward * 10;
-        m_lookTargetSmooth = Vector3.SmoothDamp(m_lookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.95f);
-
         transform.LookAt(m_lookTargetSmooth);
     }
 
@@ -91,23 +102,33 @@ public class Dude2 : MonoBehaviour
 
         platform.Visited = true;
 
-        var jumpPoimt = platform.GetComponent<JumpPointView>();
+        var platformJumpPoint = platform.GetComponent<PlatformJumpPointView>();
+        m_prevPlatform = platformJumpPoint;
+        m_nextPlatform = platformJumpPoint.m_nextPlatform;
 
-        platformIndex++;
+        SetLookTarget(m_prevPlatform, m_nextPlatform);
 
-        m_targetPlatformPosition = platforms[platformIndex].transform.position;
-
-        RecalculateLookTarget();
-
-        Jump(jumpPoimt.Position, jumpPoimt.GetJumpSpeed(), jumpPoimt.GetJumpAngle());
+        Jump(m_nextPlatform.Position, m_prevPlatform.GetJumpSpeed(), m_prevPlatform.GetJumpAngle());
 
         camJump = true;
     }
 
-    private void RecalculateLookTarget()
+    private void SetLookTarget(JumpPointView prevJumpPoint, JumpPointView nextJumpPoint)
     {
-        m_lookTarget = m_targetPlatformPosition;
+        Vector3 direction = nextJumpPoint.Position - prevJumpPoint.Position;
+        direction = direction.normalized * 1.0f;
 
-        // float distance = (m_lookTarget - transform.position).magnitude;
+        Vector3 lookTarget = nextJumpPoint.Position + direction;
+        SetLookTarget(lookTarget);
+    }
+
+    private void SetLookTarget(Vector3 lookTarget)
+    {
+        m_lookTarget = lookTarget;
+    }
+
+    private void UpdateSmoothLookTarget()
+    {
+        m_lookTargetSmooth = Vector3.SmoothDamp(m_lookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.6f);
     }
 }
