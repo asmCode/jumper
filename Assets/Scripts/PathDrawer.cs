@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class PathDrawer : MonoBehaviour
 {
-    public JumpPointView[] m_jumpPoints;
+    public JumpPointView m_firstJumpPoint;
 
     void OnDrawGizmos()
     {
-        if (m_jumpPoints == null || m_jumpPoints.Length < 2)
+        List<int> visitedNodes = new List<int>();
+
+        if (m_firstJumpPoint == null || m_firstJumpPoint.m_nextJumpPoint == null)
             return;
 
-        var startPoint = m_jumpPoints[0];
+        var startPoint = m_firstJumpPoint;
         var endPoint = startPoint.m_nextJumpPoint;
 
-        while (endPoint != null)
+        while (endPoint != null && !visitedNodes.Contains(startPoint.GetHashCode()))
         {
+            visitedNodes.Add(startPoint.GetHashCode());
+
             Gizmos.DrawLine(
                 startPoint.Position,
                 endPoint.Position);

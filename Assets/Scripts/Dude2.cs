@@ -15,7 +15,7 @@ public class Dude2 : MonoBehaviour
     private Vector3 m_lookTarget;
     private Vector3 m_lookTargetVelocity;
 
-    public Platform[] platforms;
+    public JumpPointView m_firstJumpPoint;
 
     public float m_horizontalSpeed;
     public float m_horizontalDistance;
@@ -34,12 +34,22 @@ public class Dude2 : MonoBehaviour
 
     private void Init()
     {
-        var firstPlatformJumpPoint = platforms[0].GetComponent<PlatformJumpPointView>();
-
-        m_prevPlatform = firstPlatformJumpPoint;
-        m_nextPlatform = firstPlatformJumpPoint.m_nextPlatform.GetComponent<JumpPointView>();
+        m_prevPlatform = m_firstJumpPoint;
+        m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().m_nextPlatform;
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
+
+        var current = m_firstJumpPoint.GetComponent<PlatformJumpPointView>();
+        while (current != null)
+        {
+            if (current.m_nextPlatform != null)
+            {
+                current.m_nextPlatform.GetComponent<PlatformJumpPointView>().m_prevPlatform = current;
+                current = current.m_nextPlatform.GetComponent<PlatformJumpPointView>();
+            }
+            else
+                current = null;
+        }
     }
 
     void Update()
@@ -74,6 +84,12 @@ public class Dude2 : MonoBehaviour
 
         transform.position = position;
         transform.LookAt(m_lookTargetSmooth);
+
+        if (m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance && camJump)
+        {
+            Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+            camJump = false;
+        }
     }
 
     private void Jump(Vector3 targetPlatformPosition, float speed, float angle)
@@ -116,7 +132,7 @@ public class Dude2 : MonoBehaviour
     private void SetLookTarget(JumpPointView prevJumpPoint, JumpPointView nextJumpPoint)
     {
         Vector3 direction = nextJumpPoint.Position - prevJumpPoint.Position;
-        direction = direction.normalized * 1.0f;
+        direction = direction.normalized * 4.0f;
 
         Vector3 lookTarget = nextJumpPoint.Position + direction;
         SetLookTarget(lookTarget);
@@ -129,6 +145,6 @@ public class Dude2 : MonoBehaviour
 
     private void UpdateSmoothLookTarget()
     {
-        m_lookTargetSmooth = Vector3.SmoothDamp(m_lookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.6f);
+        m_lookTargetSmooth = Vector3.SmoothDamp(m_lookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.4f);
     }
 }
