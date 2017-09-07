@@ -25,6 +25,20 @@ public class Physics
             ((G * d * d)) / (2 * v_cos_a * v_cos_a);
     }
 
+    public static Vector3 GetPositionAtDistance(Vector3 start, Vector3 end, float a, float d, float v)
+    {
+        float height = GetHeightAtDistance(0, a, d, v);
+
+        var direction2d = end - start;
+        direction2d.y = 0.0f;
+        direction2d.Normalize();
+
+        var position = start + direction2d * d;
+        position.y += height;
+
+        return position;
+    }
+
     public static float GetTotalTime(float distance, float speed, float angle)
     {
         return distance / (speed * Mathf.Cos(angle));
