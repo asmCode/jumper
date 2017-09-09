@@ -85,11 +85,11 @@ public class Dude2 : MonoBehaviour
         transform.position = position;
         transform.LookAt(m_lookTargetSmooth);
 
-        if (m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance && camJump)
-        {
-            Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
-            camJump = false;
-        }
+        //if (m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance && camJump)
+        //{
+        //    Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+        //    camJump = false;
+        //}
     }
 
     private void Jump(Vector3 targetPlatformPosition, float speed, float angle)
