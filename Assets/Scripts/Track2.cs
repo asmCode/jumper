@@ -9,6 +9,8 @@ public class Track2 : MonoBehaviour
     private void OnEnable()
     {
         EditorApplication.hierarchyWindowChanged += OnHierarchyChanged;
+
+        UpdatePlatforms();
     }
 
     private void OnDisable()
@@ -18,7 +20,13 @@ public class Track2 : MonoBehaviour
 
     private void OnHierarchyChanged()
     {
+        UpdatePlatforms();
+    }
+
+    private void UpdatePlatforms()
+    {
         UpdatePlatformConnections();
+        UpdatePlatformOptimalJumpDistances();
     }
 
     private void Update()
@@ -38,6 +46,28 @@ public class Track2 : MonoBehaviour
 
             child.m_prevPlatform = childPrev;
             child.m_nextPlatform = childNext;
+        }
+    }
+
+    private void UpdatePlatformOptimalJumpDistances()
+    {
+        if (transform.childCount < 2)
+            return;
+
+        for (int i = 0; i < transform.childCount - 1; i++)
+        {
+            var child = transform.GetChild(i).GetComponent<PlatformJumpPointView>();
+            var childNext = transform.GetChild(i + 1).GetComponent<PlatformJumpPointView>();
+
+            Vector3 jumpPosition;
+            child.m_airJumpOnDistance = JumpResolver.GetOptimalJumpTrajectoryDistance(
+                child.Position,
+                child.GetJumpSpeed(),
+                child.GetJumpAngle(),
+                8.0f,
+                Mathf.PI / 4.0f,
+                childNext.Position,
+                out jumpPosition);
         }
     }
 }
