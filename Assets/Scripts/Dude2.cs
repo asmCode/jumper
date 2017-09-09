@@ -9,6 +9,10 @@ public class Dude2 : MonoBehaviour
     private float m_jumpAngle = 8.0f;
     private bool m_started = false;
 
+    public AudioSource m_soundJump;
+    public AudioSource m_soundLand;
+
+    public DureCamera m_dudeCamera;
     public bool camJump = true;
 
     public Vector3 m_lookTargetSmooth;
@@ -64,7 +68,7 @@ public class Dude2 : MonoBehaviour
                     m_started = true;
                 }
                 else
-                    Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+                    AirJump();
 
                 camJump = false;
             }
@@ -85,11 +89,20 @@ public class Dude2 : MonoBehaviour
         transform.position = position;
         transform.LookAt(m_lookTargetSmooth);
 
-        //if (m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance && camJump)
-        //{
-        //    Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
-        //    camJump = false;
-        //}
+        if (m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance && camJump)
+        {
+            AirJump();
+            camJump = false;
+        }
+    }
+
+    private void AirJump()
+    {
+        Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+
+        m_soundJump.Play();
+
+        m_dudeCamera.PlayAirJumpAnimation();
     }
 
     private void Jump(Vector3 targetPlatformPosition, float speed, float angle)
@@ -125,6 +138,10 @@ public class Dude2 : MonoBehaviour
         SetLookTarget(m_prevPlatform, m_nextPlatform);
 
         Jump(m_nextPlatform.Position, m_prevPlatform.GetJumpSpeed(), m_prevPlatform.GetJumpAngle());
+
+        m_dudeCamera.PlayPlatformJumpAnimation();
+
+        m_soundLand.Play();
 
         camJump = true;
     }
