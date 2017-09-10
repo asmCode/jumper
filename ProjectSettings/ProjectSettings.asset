@@ -121,7 +121,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 0.0.1
+  bundleVersion: 0.0.2
   preloadedAssets: []
   metroInputSource: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -144,10 +144,10 @@ PlayerSettings:
     Android: com.Company.ProductName
     Standalone: unity.Semi-Serious Games.Jumper2
     Tizen: com.Company.ProductName
-    iOS: com.Company.ProductName
+    iOS: com.semiseriousgames.jumper2
     tvOS: com.Company.ProductName
   buildNumber:
-    iOS: 0
+    iOS: 2
   AndroidBundleVersionCode: 1
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0

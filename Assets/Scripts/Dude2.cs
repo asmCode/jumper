@@ -12,6 +12,8 @@ public class Dude2 : MonoBehaviour
     public AudioSource m_soundJump;
     public AudioSource m_soundLand;
 
+    public bool m_autoJump = false;
+
     public DureCamera m_dudeCamera;
     public bool camJump = true;
 
@@ -89,7 +91,9 @@ public class Dude2 : MonoBehaviour
         transform.position = position;
         transform.LookAt(m_lookTargetSmooth);
 
-        if (m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance && camJump)
+        if (m_autoJump &&
+            m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance &&
+            camJump)
         {
             AirJump();
             camJump = false;
