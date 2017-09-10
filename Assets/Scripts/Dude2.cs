@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Dude2 : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class Dude2 : MonoBehaviour
         m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().m_nextPlatform;
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
+        m_lookTargetSmooth = m_prevPlatform.Position;
 
         var current = m_firstJumpPoint.GetComponent<PlatformJumpPointView>();
         while (current != null)
@@ -56,6 +58,11 @@ public class Dude2 : MonoBehaviour
             else
                 current = null;
         }
+    }
+
+    public void UiEvent_Reset()
+    {
+        SceneManager.LoadScene("Gameplay2");
     }
 
     void Update()
@@ -90,6 +97,12 @@ public class Dude2 : MonoBehaviour
 
         transform.position = position;
         transform.LookAt(m_lookTargetSmooth);
+
+        if (transform.position.y < 0)
+        {
+            SceneManager.LoadScene("Gameplay2");
+            return;
+        }
 
         if (m_autoJump &&
             m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance &&
@@ -138,6 +151,11 @@ public class Dude2 : MonoBehaviour
         var platformJumpPoint = platform.GetComponent<PlatformJumpPointView>();
         m_prevPlatform = platformJumpPoint;
         m_nextPlatform = platformJumpPoint.m_nextPlatform;
+
+        if (m_nextPlatform == null)
+        {
+            SceneManager.LoadScene("Gameplay2");
+        }
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
 
