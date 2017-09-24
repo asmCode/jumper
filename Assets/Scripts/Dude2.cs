@@ -5,38 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class Dude2 : MonoBehaviour
 {
-    private Vector3 m_velocity;
     private float m_jumpSpeed = 8.0f;
     private float m_jumpAngle = 8.0f;
     private bool m_started = false;
 
-    public AudioSource m_soundJump;
-    public AudioSource m_soundLand;
+    private AudioSource m_soundJump;
+    private AudioSource m_soundLand;
 
     public bool m_autoJump = false;
 
-    public DureCamera m_dudeCamera;
-    public bool camJump = true;
+    private DureCamera m_dudeCamera;
+    private bool m_camJump = true;
 
-    public Vector3 m_lookTargetSmooth;
+    public Vector3 LookTargetSmooth { get; private set; }
     private Vector3 m_lookTarget;
     private Vector3 m_lookTargetVelocity;
 
     public JumpPointView m_firstJumpPoint;
 
-    public float m_horizontalSpeed;
-    public float m_horizontalDistance;
-    public Vector3 m_horizontalDirection;
+    private float m_horizontalSpeed;
+    private float m_horizontalDistance;
+    private Vector3 m_horizontalDirection;
 
-    public Vector3 m_jumpPosition;
+    private Vector3 m_jumpPosition;
 
-    public JumpPointView m_prevPlatform;
-    public JumpPointView m_nextPlatform;
+    private JumpPointView m_prevPlatform;
+    private JumpPointView m_nextPlatform;
+
+    public JumpPointView PrevPlatform { get { return m_prevPlatform; } }
+    public JumpPointView NextPlatform { get { return m_nextPlatform; } }
 
     // Use this for initialization
     void Start()
     {
         Init();
+    }
+
+    private void Awake()
+    {
+        m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
+        m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
+        m_dudeCamera = transform.Find("CameraAnimRoot").GetComponent<DureCamera>();
     }
 
     private void Init()
@@ -45,7 +54,7 @@ public class Dude2 : MonoBehaviour
         m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().m_nextPlatform;
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
-        m_lookTargetSmooth = m_prevPlatform.Position;
+        LookTargetSmooth = m_prevPlatform.Position;
 
         var current = m_firstJumpPoint.GetComponent<PlatformJumpPointView>();
         while (current != null)
@@ -69,7 +78,7 @@ public class Dude2 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            if (camJump)
+            if (m_camJump)
             {
                 if (!m_started)
                 {
@@ -79,7 +88,7 @@ public class Dude2 : MonoBehaviour
                 else
                     AirJump();
 
-                camJump = false;
+                m_camJump = false;
             }
         }
 
@@ -96,7 +105,7 @@ public class Dude2 : MonoBehaviour
         UpdateSmoothLookTarget();
 
         transform.position = position;
-        transform.LookAt(m_lookTargetSmooth);
+        transform.LookAt(LookTargetSmooth);
 
         if (transform.position.y < 0)
         {
@@ -106,10 +115,10 @@ public class Dude2 : MonoBehaviour
 
         if (m_autoJump &&
             m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance &&
-            camJump)
+            m_camJump)
         {
             AirJump();
-            camJump = false;
+            m_camJump = false;
         }
     }
 
@@ -165,7 +174,7 @@ public class Dude2 : MonoBehaviour
 
         m_soundLand.Play();
 
-        camJump = true;
+        m_camJump = true;
     }
 
     private void SetLookTarget(JumpPointView prevJumpPoint, JumpPointView nextJumpPoint)
@@ -184,6 +193,6 @@ public class Dude2 : MonoBehaviour
 
     private void UpdateSmoothLookTarget()
     {
-        m_lookTargetSmooth = Vector3.SmoothDamp(m_lookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.4f);
+        LookTargetSmooth = Vector3.SmoothDamp(LookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.4f);
     }
 }

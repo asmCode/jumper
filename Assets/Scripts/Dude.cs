@@ -190,11 +190,6 @@ public class Dude : MonoBehaviour
             SegmentAngle = 45 * Mathf.Deg2Rad;
         SegmentTotalTime = Physics.GetTotalTime(m_beginJumpPoint.Distance, m_speed, SegmentAngle);
 
-        if (float.IsNaN(SegmentTotalTime))
-        {
-            int d = 0;
-        }
-
         m_lookTarget = m_endJumpPoint.Position;
     }
 
@@ -224,10 +219,6 @@ public class Dude : MonoBehaviour
         var position = m_beginJumpPoint.Position + m_beginJumpPoint.Direction * segmentDistance;
         position.y = m_beginJumpPoint.Position.y + h;
 
-        if (float.IsNaN(position.x))
-        {
-            int d = 0;
-        }
         transform.position = position;
 
         Vector3 currentLookTarget = transform.position + transform.forward * m_beginJumpPoint.Distance;

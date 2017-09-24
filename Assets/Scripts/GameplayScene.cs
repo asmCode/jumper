@@ -13,8 +13,6 @@ public class GameplayScene : MonoBehaviour
 
     private TrackDebugInfo m_trackDebugInfo = new TrackDebugInfo();
 
-    private Vector3 m_targetLookVector;
-
     public void UiEvent_SetSeed(int seed)
     {
         m_seed = seed;

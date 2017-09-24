@@ -12,8 +12,8 @@ public class Diagnostic : MonoBehaviour
 
 	private void Update()
 	{
-		m_prevPlatform.position = m_dude.m_prevPlatform.transform.position;
-		m_nextPlatform.position = m_dude.m_nextPlatform.transform.position;
-		m_lookTargetSmooth.position = m_dude.m_lookTargetSmooth;
+		m_prevPlatform.position = m_dude.PrevPlatform.transform.position;
+		m_nextPlatform.position = m_dude.NextPlatform.transform.position;
+		m_lookTargetSmooth.position = m_dude.LookTargetSmooth;
 	}
 }
