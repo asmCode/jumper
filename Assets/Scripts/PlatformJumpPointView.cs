@@ -8,7 +8,12 @@ public class PlatformJumpPointView : JumpPointView
 	public JumpPointView NextPlatform { get; set; }
     public JumpPointView PrevPlatform { get; set; }
     public float m_jumpSpeed = 8.0f;
-    public float m_jumpAngle = Mathf.PI / 4.0f;  // 45.0f;
+    public float m_jumpAngle = 45.0f;
+
+    public void Start()
+    {
+        m_jumpAngle *= Mathf.Rad2Deg;
+    }
 
     public override void Update()
     {
@@ -33,7 +38,6 @@ public class PlatformJumpPointView : JumpPointView
 
 	public override float GetJumpAngle()
 	{
-        // return m_jumpAngle * Mathf.Deg2Rad;
-        return m_jumpAngle;
+        return m_jumpAngle * Mathf.Deg2Rad;
     }
 }
