@@ -10,49 +10,6 @@ public class PathDrawer : MonoBehaviour
     void OnDrawGizmos()
     {
         DrawTrack();
-        //return;
-
-        List<int> visitedNodes = new List<int>();
-
-        if (m_firstJumpPoint == null || m_firstJumpPoint.m_nextJumpPoint == null)
-            return;
-
-        var startPoint = m_firstJumpPoint;
-        var endPoint = startPoint.m_nextJumpPoint;
-
-        while (endPoint != null && !visitedNodes.Contains(startPoint.GetHashCode()))
-        {
-            visitedNodes.Add(startPoint.GetHashCode());
-
-            Gizmos.DrawLine(
-                startPoint.Position,
-                endPoint.Position);
-
-            DrawJumpTrajectory(
-                startPoint.Position,
-                startPoint.GetDirection2D(),
-                startPoint.GetJumpAngle(),
-                startPoint.GetJumpSpeed(),
-                Color.green,
-                10.0f);
-
-            startPoint = endPoint;
-            endPoint = endPoint.m_nextJumpPoint;
-
-            // Vector3 direction = m_platforms[i + 1].transform.position - m_platforms[i].transform.position;
-            // direction.y = 0;
-            // direction.Normalize();
-
-            // Vector3 axis = Vector3.Cross(Vector3.up, direction);
-            // var q = Quaternion.AngleAxis(-45.0f, axis);
-            // direction = q * direction;
-
-            // DrawJumpTrajectory(
-            //     m_platforms[i].transform.position,
-            //     direction,
-            //     m_airJumpSpeeed,
-            //     Color.green);
-        }
     }
 
     private void DrawTrack()

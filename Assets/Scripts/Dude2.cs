@@ -51,7 +51,7 @@ public class Dude2 : MonoBehaviour
     private void Init()
     {
         m_prevPlatform = m_firstJumpPoint;
-        m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().m_nextPlatform;
+        m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().NextPlatform;
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
         LookTargetSmooth = m_prevPlatform.Position;
@@ -59,10 +59,10 @@ public class Dude2 : MonoBehaviour
         var current = m_firstJumpPoint.GetComponent<PlatformJumpPointView>();
         while (current != null)
         {
-            if (current.m_nextPlatform != null)
+            if (current.NextPlatform != null)
             {
-                current.m_nextPlatform.GetComponent<PlatformJumpPointView>().m_prevPlatform = current;
-                current = current.m_nextPlatform.GetComponent<PlatformJumpPointView>();
+                current.NextPlatform.GetComponent<PlatformJumpPointView>().PrevPlatform = current;
+                current = current.NextPlatform.GetComponent<PlatformJumpPointView>();
             }
             else
                 current = null;
@@ -114,7 +114,7 @@ public class Dude2 : MonoBehaviour
         }
 
         if (m_autoJump &&
-            m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().m_airJumpOnDistance &&
+            m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().AirJumpOnDistance &&
             m_camJump)
         {
             AirJump();
@@ -159,7 +159,7 @@ public class Dude2 : MonoBehaviour
 
         var platformJumpPoint = platform.GetComponent<PlatformJumpPointView>();
         m_prevPlatform = platformJumpPoint;
-        m_nextPlatform = platformJumpPoint.m_nextPlatform;
+        m_nextPlatform = platformJumpPoint.NextPlatform;
 
         if (m_nextPlatform == null)
         {

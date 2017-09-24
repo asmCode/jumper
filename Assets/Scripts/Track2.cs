@@ -46,8 +46,8 @@ public class Track2 : MonoBehaviour
             var child = transform.GetChild(i).GetComponent<PlatformJumpPointView>();
             var childNext = i < transform.childCount - 1 ? transform.GetChild(i + 1).GetComponent<PlatformJumpPointView>() : null;
 
-            child.m_prevPlatform = childPrev;
-            child.m_nextPlatform = childNext;
+            child.PrevPlatform = childPrev;
+            child.NextPlatform = childNext;
         }
     }
 
@@ -62,7 +62,7 @@ public class Track2 : MonoBehaviour
             var childNext = transform.GetChild(i + 1).GetComponent<PlatformJumpPointView>();
 
             Vector3 jumpPosition;
-            child.m_airJumpOnDistance = JumpResolver.GetOptimalJumpTrajectoryDistance(
+            child.AirJumpOnDistance = JumpResolver.GetOptimalJumpTrajectoryDistance(
                 child.Position,
                 child.GetJumpSpeed(),
                 child.GetJumpAngle(),

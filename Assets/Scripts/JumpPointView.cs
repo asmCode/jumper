@@ -5,31 +5,19 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class JumpPointView : MonoBehaviour
 {
-	public JumpPointView m_nextJumpPoint;
-    public float m_airJumpOnDistance;
+    public float AirJumpOnDistance { get; set; }
 
     public Vector3 Position
 	{
 		get { return transform.position; }
 	}
 
-    public virtual void Update()
-    {
-        if (m_nextJumpPoint != null)
-        {
-            float height = Physics.GetHeightAtDistance(0, GetJumpAngle(), m_airJumpOnDistance, GetJumpSpeed());
-
-            var position = Position;
-            position += GetDirection2D() * m_airJumpOnDistance;
-            position.y += height;
-            m_nextJumpPoint.transform.position = position;
-        }
-    }
-
     public virtual Vector3 GetDirection()
 	{
-		return (m_nextJumpPoint.Position - Position).normalized;
+        return Vector3.forward;
 	}
+
+    public virtual void Update() { }
 
 	public virtual Vector3 GetDirection2D()
 	{
