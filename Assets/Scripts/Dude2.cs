@@ -15,7 +15,7 @@ public class Dude2 : MonoBehaviour
     public bool m_autoJump = false;
 
     private DureCamera m_dudeCamera;
-    private bool m_camJump = true;
+    private bool m_canJump = true;
 
     public Vector3 LookTargetSmooth { get; private set; }
     private Vector3 m_lookTarget;
@@ -53,8 +53,11 @@ public class Dude2 : MonoBehaviour
         m_prevPlatform = m_firstJumpPoint;
         m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().NextPlatform;
 
-        SetLookTarget(m_prevPlatform, m_nextPlatform);
-        LookTargetSmooth = m_prevPlatform.Position;
+        transform.position = m_firstJumpPoint.Position + Vector3.up;
+
+        SetLookTarget(m_nextPlatform, m_nextPlatform);
+        LookTargetSmooth = m_nextPlatform.Position;
+        transform.LookAt(LookTargetSmooth);
 
         var current = m_firstJumpPoint.GetComponent<PlatformJumpPointView>();
         while (current != null)
@@ -78,17 +81,17 @@ public class Dude2 : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            if (m_camJump)
+            if (m_canJump)
             {
                 if (!m_started)
                 {
-                    Jump(m_prevPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+                    Jump(m_prevPlatform.Position, 0.001f, 45.0f * Mathf.Deg2Rad);
                     m_started = true;
                 }
                 else
                     AirJump();
 
-                m_camJump = false;
+                m_canJump = false;
             }
         }
 
@@ -115,10 +118,10 @@ public class Dude2 : MonoBehaviour
 
         if (m_autoJump &&
             m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().AirJumpOnDistance &&
-            m_camJump)
+            m_canJump)
         {
             AirJump();
-            m_camJump = false;
+            m_canJump = false;
         }
     }
 
@@ -174,7 +177,7 @@ public class Dude2 : MonoBehaviour
 
         m_soundLand.Play();
 
-        m_camJump = true;
+        m_canJump = true;
     }
 
     private void SetLookTarget(JumpPointView prevJumpPoint, JumpPointView nextJumpPoint)

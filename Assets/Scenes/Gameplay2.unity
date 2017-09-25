@@ -2581,19 +2581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03a001d4b73dab443ab6bcee8a23907c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_soundJump: {fileID: 449582785}
-  m_soundLand: {fileID: 1752233290}
-  m_autoJump: 0
-  m_dudeCamera: {fileID: 318421680}
-  camJump: 1
-  m_lookTargetSmooth: {x: 0, y: 0, z: 0}
+  m_autoJump: 1
   m_firstJumpPoint: {fileID: 1078300804}
-  m_horizontalSpeed: 0
-  m_horizontalDistance: 0
-  m_horizontalDirection: {x: 0, y: 0, z: 0}
-  m_jumpPosition: {x: 0, y: 0, z: 0}
-  m_prevPlatform: {fileID: 0}
-  m_nextPlatform: {fileID: 0}
 --- !u!54 &1553814699
 Rigidbody:
   m_ObjectHideFlags: 0
