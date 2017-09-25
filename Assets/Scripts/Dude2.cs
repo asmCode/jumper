@@ -46,6 +46,15 @@ public class Dude2 : MonoBehaviour
         m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
         m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
         m_dudeCamera = transform.Find("CameraAnimRoot").GetComponent<DureCamera>();
+
+        if (m_firstJumpPoint == null)
+        {
+            var track = GameObject.Find("Track");
+            if (track != null && track.transform.childCount > 1)
+            {
+                m_firstJumpPoint = track.transform.GetChild(0).GetComponent<PlatformJumpPointView>();
+            }
+        }
     }
 
     private void Init()
@@ -79,7 +88,7 @@ public class Dude2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump))
         {
             if (m_canJump)
             {
@@ -112,7 +121,7 @@ public class Dude2 : MonoBehaviour
 
         if (transform.position.y < 0)
         {
-            SceneManager.LoadScene("Gameplay2");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
 
@@ -166,7 +175,8 @@ public class Dude2 : MonoBehaviour
 
         if (m_nextPlatform == null)
         {
-            SceneManager.LoadScene("Gameplay2");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            return;
         }
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);

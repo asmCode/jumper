@@ -10,11 +10,6 @@ public class PlatformJumpPointView : JumpPointView
     public float m_jumpSpeed = 8.0f;
     public float m_jumpAngle = 45.0f;
 
-    public void Start()
-    {
-        m_jumpAngle *= Mathf.Rad2Deg;
-    }
-
     public override void Update()
     {
         //if (m_nextPlatform != null)

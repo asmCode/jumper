@@ -4,12 +4,24 @@ using UnityEngine;
 
 public class PathDrawer : MonoBehaviour
 {
-    public JumpPointView m_firstJumpPoint;
-    public Transform m_track;
+    public bool m_drawTrack = true;
+
+    private Transform m_track;
 
     void OnDrawGizmos()
     {
-        DrawTrack();
+        Init();
+
+        if (m_drawTrack)
+            DrawTrack();
+    }
+
+    private void Init()
+    {
+        if (m_track != null)
+            return;
+
+        m_track = transform;
     }
 
     private void DrawTrack()
