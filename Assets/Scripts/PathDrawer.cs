@@ -1,19 +1,66 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
+[ExecuteInEditMode]
 public class PathDrawer : MonoBehaviour
 {
-    public bool m_drawTrack = true;
+    public enum DrawMode
+    {
+        None,
+        Selected,
+        All
+    }
+
+    public DrawMode m_drawMode = DrawMode.All;
 
     private Transform m_track;
 
-    void OnDrawGizmos()
+    void Update()
+    {
+        Draw();
+    }
+
+    private void OnEnable()
+    {
+        Selection.selectionChanged += HandleSelectionChanged;
+    }
+
+    private void OnDisable()
+    {
+        Selection.selectionChanged -= HandleSelectionChanged;
+    }
+
+    private void HandleSelectionChanged()
+    {
+        // Trick to force unity to refresh the view
+        gameObject.SetActive(false);
+        gameObject.SetActive(true);
+
+        //if (Selection.activeGameObject != null && Selection.activeGameObject.GetComponent<PlatformJumpPointView>() != null)
+        //{
+            
+        //    Selection.activeGameObject.SetActive(false);
+        //    Selection.activeGameObject.SetActive(true);
+        //}
+
+        Draw();
+    }
+
+    private void Draw()
     {
         Init();
 
-        if (m_drawTrack)
-            DrawTrack();
+        if (m_drawMode == DrawMode.None)
+            return;
+
+        if (m_drawMode == DrawMode.Selected && Selection.activeGameObject == null)
+            return;
+        else if (m_drawMode == DrawMode.Selected && Selection.activeGameObject != null)
+            DrawTrack(Selection.activeGameObject);
+        else
+            DrawTrack(null);
     }
 
     private void Init()
@@ -24,7 +71,7 @@ public class PathDrawer : MonoBehaviour
         m_track = transform;
     }
 
-    private void DrawTrack()
+    private void DrawTrack(GameObject drawOnly)
     {
         if (m_track == null || m_track.childCount < 2)
             return;
@@ -36,6 +83,9 @@ public class PathDrawer : MonoBehaviour
 
             var child2 = m_track.GetChild(i + 1);
             var platform2 = child2.GetComponent<PlatformJumpPointView>();
+
+            if (drawOnly != null && drawOnly != child1.gameObject && drawOnly != child2.gameObject)
+                continue;
 
             Vector3 jumpPoint;
             float jumpTraDist = JumpResolver.GetOptimalJumpTrajectoryDistance(
@@ -66,8 +116,8 @@ public class PathDrawer : MonoBehaviour
                 Color.yellow,
                 targetDist.magnitude);
 
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(jumpPoint, 0.2f);
+            //Gizmos.color = Color.yellow;
+            //Gizmos.DrawSphere(jumpPoint, 0.2f);
         }
     }
 
