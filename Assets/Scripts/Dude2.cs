@@ -173,6 +173,8 @@ public class Dude2 : MonoBehaviour
         m_prevPlatform = platformJumpPoint;
         m_nextPlatform = platformJumpPoint.NextPlatform;
 
+        platformJumpPoint.NotifyJump();
+
         if (m_nextPlatform == null)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
