@@ -7,10 +7,22 @@ public class JumpPointView : MonoBehaviour
 {
     public float AirJumpOnDistance { get; set; }
 
+    private Vector3 m_nativePosition;
+
     public Vector3 Position
 	{
 		get { return transform.position; }
 	}
+
+    public Vector3 NativePosition
+    {
+        get { return m_nativePosition; }
+    }
+
+    private void Start()
+    {
+        m_nativePosition = transform.position;
+    }
 
     public virtual Vector3 GetDirection()
 	{

@@ -6,10 +6,11 @@ using UnityEngine.Events;
 [ExecuteInEditMode]
 public class PlatformJumpPointView : JumpPointView
 {
-	public JumpPointView NextPlatform { get; set; }
+    public JumpPointView NextPlatform { get; set; }
     public JumpPointView PrevPlatform { get; set; }
     public float m_jumpSpeed = 8.0f;
     public float m_jumpAngle = 45.0f;
+    public Transform m_attachTo;
 
     public UnityEvent OnJump;
 
@@ -20,6 +21,11 @@ public class PlatformJumpPointView : JumpPointView
         //    transform.LookAt(m_nextPlatform.transform);
         //}
         
+        if (m_attachTo != null)
+        {
+            transform.position = m_attachTo.position;
+            transform.rotation = m_attachTo.rotation;
+        }
     }
 
     public override Vector3 GetDirection()
@@ -27,7 +33,7 @@ public class PlatformJumpPointView : JumpPointView
         if (NextPlatform == null)
             return Vector3.forward;
 
-		return (NextPlatform.Position - Position).normalized;
+		return (NextPlatform.NativePosition - NativePosition).normalized;
 	}
 
 	public override float GetJumpSpeed()

@@ -63,12 +63,12 @@ public class Track2 : MonoBehaviour
 
             Vector3 jumpPosition;
             child.AirJumpOnDistance = JumpResolver.GetOptimalJumpTrajectoryDistance(
-                child.Position,
+                child.NativePosition,
                 child.GetJumpSpeed(),
                 child.GetJumpAngle(),
                 8.0f,
                 Mathf.PI / 4.0f,
-                childNext.Position,
+                childNext.NativePosition,
                 out jumpPosition);
         }
     }

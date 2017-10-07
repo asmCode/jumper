@@ -94,7 +94,7 @@ public class Dude2 : MonoBehaviour
             {
                 if (!m_started)
                 {
-                    Jump(m_prevPlatform.Position, 0.001f, 45.0f * Mathf.Deg2Rad);
+                    Jump(m_prevPlatform.NativePosition, 0.001f, 45.0f * Mathf.Deg2Rad);
                     m_started = true;
                 }
                 else
@@ -136,7 +136,7 @@ public class Dude2 : MonoBehaviour
 
     private void AirJump()
     {
-        Jump(m_nextPlatform.Position, 8.0f, 45.0f * Mathf.Deg2Rad);
+        Jump(m_nextPlatform.NativePosition, 8.0f, 45.0f * Mathf.Deg2Rad);
 
         m_soundJump.Play();
 
@@ -183,7 +183,7 @@ public class Dude2 : MonoBehaviour
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
 
-        Jump(m_nextPlatform.Position, m_prevPlatform.GetJumpSpeed(), m_prevPlatform.GetJumpAngle());
+        Jump(m_nextPlatform.NativePosition, m_prevPlatform.GetJumpSpeed(), m_prevPlatform.GetJumpAngle());
 
         m_dudeCamera.PlayPlatformJumpAnimation();
 
@@ -194,10 +194,10 @@ public class Dude2 : MonoBehaviour
 
     private void SetLookTarget(JumpPointView prevJumpPoint, JumpPointView nextJumpPoint)
     {
-        Vector3 direction = nextJumpPoint.Position - prevJumpPoint.Position;
+        Vector3 direction = nextJumpPoint.NativePosition - prevJumpPoint.NativePosition;
         direction = direction.normalized * 4.0f;
 
-        Vector3 lookTarget = nextJumpPoint.Position + direction;
+        Vector3 lookTarget = nextJumpPoint.NativePosition + direction;
         SetLookTarget(lookTarget);
     }
 
