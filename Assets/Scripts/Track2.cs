@@ -1,8 +1,8 @@
-﻿#if UNITY_EDITOR
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -10,14 +10,18 @@ public class Track2 : MonoBehaviour
 {
     private void OnEnable()
     {
-        EditorApplication.hierarchyWindowChanged += OnHierarchyChanged;
+#if UNITY_EDITOR
+		EditorApplication.hierarchyWindowChanged += OnHierarchyChanged;
+#endif
 
         UpdatePlatforms();
     }
 
     private void OnDisable()
     {
+#if UNITY_EDITOR
         EditorApplication.hierarchyWindowChanged -= OnHierarchyChanged;
+#endif
     }
 
     private void OnHierarchyChanged()
@@ -73,5 +77,3 @@ public class Track2 : MonoBehaviour
         }
     }
 }
-
-#endif

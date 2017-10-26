@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1677496137}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465934, g: 0.49642956, b: 0.574825, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1101,7 +1101,7 @@ Prefab:
         type: 2}
       propertyPath: m_firstJumpPoint
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1512776616}
     - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
         type: 2}
       propertyPath: m_autoJump
@@ -1733,6 +1733,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4624122662972826, guid: 5ca6e2296abf50f4f95d8706516e253a,
     type: 2}
   m_PrefabInternal: {fileID: 1511345562}
+--- !u!114 &1512776616 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
+    type: 2}
+  m_PrefabInternal: {fileID: 164157054}
+  m_Script: {fileID: 11500000, guid: efca884d820fb4d398f27da3a714e1c8, type: 3}
 --- !u!1001 &1531189758
 Prefab:
   m_ObjectHideFlags: 0

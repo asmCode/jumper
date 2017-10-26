@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 [ExecuteInEditMode]
 public class PathDrawer : MonoBehaviour
@@ -24,12 +27,16 @@ public class PathDrawer : MonoBehaviour
 
     private void OnEnable()
     {
+#if UNITY_EDITOR
         Selection.selectionChanged += HandleSelectionChanged;
+#endif
     }
 
     private void OnDisable()
     {
+#if UNITY_EDITOR
         Selection.selectionChanged -= HandleSelectionChanged;
+#endif
     }
 
     private void HandleSelectionChanged()
@@ -40,7 +47,7 @@ public class PathDrawer : MonoBehaviour
 
         //if (Selection.activeGameObject != null && Selection.activeGameObject.GetComponent<PlatformJumpPointView>() != null)
         //{
-            
+
         //    Selection.activeGameObject.SetActive(false);
         //    Selection.activeGameObject.SetActive(true);
         //}
@@ -55,12 +62,14 @@ public class PathDrawer : MonoBehaviour
         if (m_drawMode == DrawMode.None)
             return;
 
+#if UNITY_EDITOR
         if (m_drawMode == DrawMode.Selected && Selection.activeGameObject == null)
             return;
         else if (m_drawMode == DrawMode.Selected && Selection.activeGameObject != null)
             DrawTrack(Selection.activeGameObject);
         else
             DrawTrack(null);
+#endif
     }
 
     private void Init()
