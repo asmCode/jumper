@@ -23,8 +23,6 @@ public class PlatformJumpPointView : JumpPointView
         
         if (m_attachTo != null)
         {
-            transform.position = m_attachTo.position;
-            transform.rotation = m_attachTo.rotation;
         }
     }
 
