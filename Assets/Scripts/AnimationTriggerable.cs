@@ -17,8 +17,8 @@ public class AnimationTriggerable : Triggerable
         if (m_animator == null)
             return;
 
-        m_animator.Play("Default", 0, 0.0f);
-        m_animator.speed = 0.0f;
+        //m_animator.Play("Default", 0, 0.0f);
+        //m_animator.speed = 0.0f;
     }
 
     public override void Trigger(float delay)
@@ -31,7 +31,8 @@ public class AnimationTriggerable : Triggerable
 
     private void PlayDefaultAnimation()
     {
-        m_animator.speed = 1.0f;
-        m_animator.Play("Default", 0, 0.0f);
+        //m_animator.speed = 1.0f;
+        //m_animator.Play("Default", 0, 0.0f);
+		m_animator.SetTrigger ("start");
     }
 }

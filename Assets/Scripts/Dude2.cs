@@ -102,6 +102,17 @@ public class Dude2 : MonoBehaviour
 
                 m_canJump = false;
             }
+			else{
+				UnityEngine.RaycastHit hit;
+				UnityEngine.Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+				if (UnityEngine.Physics.Raycast(ray, out hit)) {
+					if (hit.transform.tag == "Clickable" ){
+						var t_TargetTrigger = hit.transform.gameObject.GetComponent<TargetTrigger>();
+						t_TargetTrigger.NotifyHit();
+					}
+				}
+			}
         }
 
         if (!m_started)

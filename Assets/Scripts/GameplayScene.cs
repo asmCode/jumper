@@ -34,7 +34,7 @@ public class GameplayScene : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            m_dude.Jump();
+			m_dude.Jump();
         }
 
         // m_dude.transform.forward = Vector3.RotateTowards(m_dude.transform.forward, lookVector, 5.0f * Time.deltaTime, 10 * Time.deltaTime);
