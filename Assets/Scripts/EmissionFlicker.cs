@@ -8,7 +8,7 @@ public class EmissionFlicker : MonoBehaviour {
 	public float floor = 0.5f;
 	public float ceiling = 1.0f;
 	public Color baseColor = Color.red;
-	public int frequency = 1;
+	public float frequency = 1.0f;
 
 	private void Start()
 	{
