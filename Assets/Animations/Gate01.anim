@@ -23,12 +23,12 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0.7
+        outSlope: 1
         tangentMode: 69
       - serializedVersion: 2
         time: 0.5
-        value: 0.35
-        inSlope: 0.7
+        value: 0.5
+        inSlope: 1
         outSlope: Infinity
         tangentMode: 69
       m_PreInfinity: 2
@@ -82,12 +82,12 @@ AnimationClip:
         time: 0
         value: 0
         inSlope: 0
-        outSlope: 0.7
+        outSlope: 1
         tangentMode: 69
       - serializedVersion: 2
         time: 0.5
-        value: 0.35
-        inSlope: 0.7
+        value: 0.5
+        inSlope: 1
         outSlope: Infinity
         tangentMode: 69
       m_PreInfinity: 2
