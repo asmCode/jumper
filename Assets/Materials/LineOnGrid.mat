@@ -7,14 +7,13 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: LineOnGrid
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10800, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHATEST_ON _EMISSION
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -41,11 +40,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 48.5}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 0.5, y: 166.7}
+        m_Offset: {x: 0.25, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0dc7e8f80da04164984f8d807d8c8e0c, type: 3}
-        m_Scale: {x: 0.5, y: 100}
+        m_Texture: {fileID: 2800000, guid: e0125b9eaa4cb1c4d8763f1fed4e4cd5, type: 3}
+        m_Scale: {x: 0.5, y: 166.7}
         m_Offset: {x: 0.25, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -85,4 +84,4 @@ Material:
     - _EmissionColor: {r: 1, g: 0, b: 0.8896551, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 1, g: 0, b: 0.8896551, a: 0.172}
+    - _TintColor: {r: 1, g: 0, b: 0.8896551, a: 1}
