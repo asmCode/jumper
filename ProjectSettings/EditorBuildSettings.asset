@@ -14,3 +14,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BoostersEpicLevel.unity
     guid: 47000f2293fab5b4fa3c8eb6595fd7d9
+  - enabled: 1
+    path: Assets/Scenes/CollidersTest.unity
+    guid: 3cd228a2022cf4d3382052caaf2684c7

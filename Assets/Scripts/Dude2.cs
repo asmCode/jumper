@@ -5,9 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class Dude2 : MonoBehaviour
 {
+    private static Vector3 GravityVector = new Vector3(0, -9.8f, 0);
+
     private float m_jumpSpeed = 8.0f;
     private float m_jumpAngle = 8.0f;
     private bool m_started = false;
+
+    private bool m_isFallingDown;
+    private float m_rollAngle;
+    private float m_rollAngleSpeed;
+    private Vector3 m_fallingDownVelocity;
 
     private AudioSource m_soundJump;
     private AudioSource m_soundLand;
@@ -88,6 +95,25 @@ public class Dude2 : MonoBehaviour
 
     void Update()
     {
+        if (m_isFallingDown)
+        {
+            var positon = transform.position;
+            m_fallingDownVelocity += GravityVector * Time.deltaTime;
+            positon += m_fallingDownVelocity * Time.deltaTime;
+            transform.position = positon;
+
+            Quaternion rollRotation = Quaternion.AngleAxis(m_rollAngleSpeed * Time.deltaTime, transform.forward);
+            transform.rotation = rollRotation * transform.rotation;
+
+            if (transform.position.y < 0)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                return;
+            }
+
+            return;
+        }
+
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump))
         {
             if (m_canJump)
@@ -169,8 +195,28 @@ public class Dude2 : MonoBehaviour
         m_horizontalSpeed = m_jumpSpeed * Mathf.Cos(angle);
     }
 
+    private void OnBodyCollision(BodyCollider bodyCollider)
+    {
+        m_isFallingDown = true;
+
+        m_rollAngle = 0.0f;
+        m_rollAngleSpeed = Random.Range(50.0f, 150.0f) * Mathf.Sign(Random.Range(-1.0f, 1.0f));
+        m_fallingDownVelocity = -m_horizontalDirection.normalized * 2.0f;
+    }
+
     private void OnTriggerEnter(Collider collider)
     {
+        // Ignore collisions if falling down.
+        if (m_isFallingDown)
+            return;
+
+        var bodyCollider = collider.gameObject.GetComponent<BodyCollider>();
+        if (bodyCollider != null && !bodyCollider.m_platform.Visited)
+        {
+            OnBodyCollision(bodyCollider);
+            return;
+        }
+
         var platform = collider.gameObject.GetComponent<Platform>();
         if (!platform)
             return;
