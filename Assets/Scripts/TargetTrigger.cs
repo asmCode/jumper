@@ -9,10 +9,18 @@ public class TargetTrigger : MonoBehaviour {
 	public Transform vanishEffect;
 	public UnityEvent OnHit;
 
+	private GameObject Gate;
+
 	public void NotifyHit()
 	{
-		OnHit.Invoke ();
+		OnHit.Invoke();
+		Gate.GetComponent<GateAnimation>().GateOpener(true);
 		vanishEffect.gameObject.SetActive (true);
 		this.gameObject.SetActive (false);
+	}
+
+	public void AssignDepemdancie(GameObject x)
+	{
+		Gate = x;
 	}
 }
