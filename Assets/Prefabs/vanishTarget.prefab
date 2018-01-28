@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198712281837087714}
   - component: {fileID: 199993296382640900}
   - component: {fileID: 82272120982962016}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: vanishTarget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 0.5
       minScalar: 1
       maxCurve:
         serializedVersion: 2

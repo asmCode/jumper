@@ -258,7 +258,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374602334811088}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.8, y: 4.5, z: 1.4}
+  m_LocalPosition: {x: -18.14, y: 6.07, z: 1}
   m_LocalScale: {x: 0.7, y: 1, z: 0.7}
   m_Children:
   - {fileID: 4352770750433476}
@@ -399,8 +399,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efca884d820fb4d398f27da3a714e1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_jumpSpeed: 8
-  m_jumpAngle: 45
+  m_jumpSpeed: 9
+  m_jumpAngle: 50
   m_attachTo: {fileID: 0}
   OnJump:
     m_PersistentCalls:
@@ -473,9 +473,9 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 1
   m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
+  m_SkinnedMotionVectors: 0
   m_Mesh: {fileID: 4300000, guid: 6b74352f12c8af7418aeb511227d6ee7, type: 3}
   m_Bones:
   - {fileID: 4227753846705032}
@@ -546,7 +546,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -2063421398
+  randomSeed: -927650912
   InitialModule:
     serializedVersion: 3
     enabled: 1

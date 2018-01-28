@@ -35,6 +35,8 @@ public class Dude2 : MonoBehaviour
     public JumpPointView PrevPlatform { get { return m_prevPlatform; } }
     public JumpPointView NextPlatform { get { return m_nextPlatform; } }
 
+	public Camera HUDCamera;
+
     // Use this for initialization
     void Start()
     {
@@ -104,10 +106,10 @@ public class Dude2 : MonoBehaviour
             }
 			else{
 				UnityEngine.RaycastHit hit;
-				UnityEngine.Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				UnityEngine.Ray ray = HUDCamera.ScreenPointToRay(Input.mousePosition);
 
 				if (UnityEngine.Physics.Raycast(ray, out hit)) {
-					if (hit.transform.tag == "Clickable" ){
+					if (hit.transform.tag == "Clickable"){
 						var t_TargetTrigger = hit.transform.gameObject.GetComponent<TargetTrigger>();
 						t_TargetTrigger.NotifyHit();
 					}
