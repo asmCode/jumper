@@ -121,12 +121,20 @@ public class Dude2 : MonoBehaviour
             Quaternion rollRotation = Quaternion.AngleAxis(m_rollAngleSpeed * Time.deltaTime, transform.forward);
             transform.rotation = rollRotation * transform.rotation;
 
-            if (transform.position.y < 0)
+            if (transform.position.y < 0 && !m_died)
             {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                m_died = true;
+                OnDied.Invoke();
                 return;
             }
 
+            return;
+        }
+
+        if (transform.position.y < 0 && !m_died)
+        {
+            m_died = true;
+            OnDied.Invoke();
             return;
         }
 
@@ -171,15 +179,6 @@ public class Dude2 : MonoBehaviour
 
         transform.position = position;
         transform.LookAt(LookTargetSmooth);
-
-        if (transform.position.y < 0 && !m_died)
-        {
-            m_died = true;
-
-            OnDied.Invoke();
-
-            return;
-        }
 
         if (m_autoJump &&
             m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().AirJumpOnDistance &&
