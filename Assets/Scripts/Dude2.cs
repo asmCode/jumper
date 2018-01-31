@@ -1,10 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class Dude2 : MonoBehaviour
 {
+    public UnityEvent OnScoredPlatform;
+
     private float m_jumpSpeed = 8.0f;
     private float m_jumpAngle = 8.0f;
     private bool m_started = false;
@@ -31,6 +34,8 @@ public class Dude2 : MonoBehaviour
 
     private JumpPointView m_prevPlatform;
     private JumpPointView m_nextPlatform;
+
+    public int PlatformsScored { get; private set; }
 
     public JumpPointView PrevPlatform { get { return m_prevPlatform; } }
     public JumpPointView NextPlatform { get { return m_nextPlatform; } }
@@ -179,6 +184,8 @@ public class Dude2 : MonoBehaviour
             return;
 
         platform.Visited = true;
+
+        PlatformsScored++;
 
         var platformJumpPoint = platform.GetComponent<PlatformJumpPointView>();
         m_prevPlatform = platformJumpPoint;

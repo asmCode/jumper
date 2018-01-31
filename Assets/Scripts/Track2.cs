@@ -8,6 +8,11 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Track2 : MonoBehaviour
 {
+    public int GetPlatformCount()
+    {
+        return transform.childCount;
+    }
+
     private void OnEnable()
     {
 #if UNITY_EDITOR
