@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayView : MonoBehaviour
 {
     public Text m_platformCountLabel;
+    public GameObject m_gameOverPanel;
 
     private int m_platformCount = 0;
     private int m_scoredPlatforms = 0;
@@ -20,6 +21,16 @@ public class PlayView : MonoBehaviour
     {
         m_scoredPlatforms = count;
         UpdateView();
+    }
+
+    public void ShowGameOver()
+    {
+        m_gameOverPanel.SetActive(true);
+    }
+
+    private void Awake()
+    {
+        m_gameOverPanel.SetActive(false);
     }
 
     private void UpdateView()

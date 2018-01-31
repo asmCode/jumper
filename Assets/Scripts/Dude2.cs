@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Dude2 : MonoBehaviour
 {
     public UnityEvent OnScoredPlatform;
+    public UnityEvent OnDied;
 
     private float m_jumpSpeed = 8.0f;
     private float m_jumpAngle = 8.0f;
@@ -35,6 +36,8 @@ public class Dude2 : MonoBehaviour
     private JumpPointView m_prevPlatform;
     private JumpPointView m_nextPlatform;
 
+    private bool m_died;
+
     public int PlatformsScored { get; private set; }
 
     public JumpPointView PrevPlatform { get { return m_prevPlatform; } }
@@ -48,6 +51,10 @@ public class Dude2 : MonoBehaviour
 
     private void Awake()
     {
+        var playViewPresenterGameObject = GameObject.Find("PlayView");
+        var playViewPresenter = playViewPresenterGameObject.GetComponent<PlayViewPresenter>();
+        playViewPresenter.RetryPressed.AddListener(() => { UiEvent_Reset(); });
+
         m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
         m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
         m_dudeCamera = transform.Find("CameraAnimRoot").GetComponent<DureCamera>();
@@ -88,11 +95,14 @@ public class Dude2 : MonoBehaviour
 
     public void UiEvent_Reset()
     {
-        SceneManager.LoadScene("Gameplay2");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     void Update()
     {
+        if (m_died)
+            return;
+
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump))
         {
             if (m_canJump)
@@ -135,9 +145,12 @@ public class Dude2 : MonoBehaviour
         transform.position = position;
         transform.LookAt(LookTargetSmooth);
 
-        if (transform.position.y < 0)
+        if (transform.position.y < 0 && !m_died)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            m_died = true;
+
+            OnDied.Invoke();
+
             return;
         }
 

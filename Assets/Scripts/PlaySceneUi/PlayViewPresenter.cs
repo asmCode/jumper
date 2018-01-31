@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayViewPresenter : MonoBehaviour
 {
+    public UnityEvent RetryPressed;
+
     private Dude2 m_dude;
     private PlayView m_playView;
 
@@ -14,6 +17,7 @@ public class PlayViewPresenter : MonoBehaviour
             return;
 
         m_dude = dudeGameObject.GetComponent<Dude2>();
+        m_dude.OnDied.AddListener(() => { m_playView.ShowGameOver(); });
 
         m_playView = GetComponent<PlayView>();
 
@@ -39,5 +43,10 @@ public class PlayViewPresenter : MonoBehaviour
             return 0;
 
         return track.GetPlatformCount();
+    }
+
+    public void UiEvent_RetryPressed()
+    {
+        RetryPressed.Invoke();
     }
 }
