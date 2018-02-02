@@ -454,8 +454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efca884d820fb4d398f27da3a714e1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_jumpSpeed: 10
-  m_jumpAngle: 70
+  m_jumpSpeed: 9
+  m_jumpAngle: 50
   m_attachTo: {fileID: 0}
   OnJump:
     m_PersistentCalls:
@@ -528,9 +528,9 @@ SkinnedMeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   serializedVersion: 2
-  m_Quality: 0
+  m_Quality: 1
   m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
+  m_SkinnedMotionVectors: 0
   m_Mesh: {fileID: 4300000, guid: 6b74352f12c8af7418aeb511227d6ee7, type: 3}
   m_Bones:
   - {fileID: 4227753846705032}
@@ -601,7 +601,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1749906317
+  randomSeed: -927650912
   InitialModule:
     serializedVersion: 3
     enabled: 1
