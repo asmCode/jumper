@@ -14,7 +14,7 @@ public class TargetTrigger : MonoBehaviour {
 	public void NotifyHit()
 	{
 		OnHit.Invoke();
-		Gate.GetComponent<GateAnimation>().GateOpener(true);
+		Gate.transform.GetChild(1).GetComponent<GateAnimation>().GateOpener(true);
 		Gate.transform.GetChild(2).gameObject.SetActive(false);
 		vanishEffect.gameObject.SetActive (true);
 		this.gameObject.SetActive (false);

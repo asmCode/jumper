@@ -1837,12 +1837,12 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpSpeed
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 55
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -6587,7 +6587,7 @@ Prefab:
         type: 2}
       propertyPath: OnJump.m_PersistentCalls.m_Calls.Array.data[8].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1020354365}
+      objectReference: {fileID: 2058461525}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42256b172be2bda49b537772a624c426, type: 2}
   m_IsPrefabParent: 0
@@ -7836,7 +7836,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpSpeed
-      value: 8.14
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -13121,7 +13121,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpSpeed
-      value: 8.07
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -16398,7 +16398,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpSpeed
-      value: 8.5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -17059,7 +17059,7 @@ Prefab:
         type: 2}
       propertyPath: OnJump.m_PersistentCalls.m_Calls.Array.data[7].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 1691026907}
+      objectReference: {fileID: 796354420}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42256b172be2bda49b537772a624c426, type: 2}
   m_IsPrefabParent: 0
@@ -21746,11 +21746,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4591961254036750, guid: ab656c41959ffff47ab1d95a081b269a,
     type: 2}
   m_PrefabInternal: {fileID: 1019505912}
---- !u!1 &1020354365 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1073040237852276, guid: 6bb00c13de5e32f42a7527006c832716,
-    type: 2}
-  m_PrefabInternal: {fileID: 1154347498}
 --- !u!114 &1020354371 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114654680121610354, guid: 6bb00c13de5e32f42a7527006c832716,
@@ -22116,7 +22111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1029957585
 Transform:
   m_ObjectHideFlags: 0
@@ -25937,7 +25932,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 45
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
         type: 2}
@@ -53947,7 +53942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efca884d820fb4d398f27da3a714e1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_jumpSpeed: 7.74
+  m_jumpSpeed: 7.91
   m_jumpAngle: 10
   m_attachTo: {fileID: 0}
   OnJump:
@@ -60115,12 +60110,12 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 30
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpSpeed
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -68506,6 +68501,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4591961254036750, guid: ab656c41959ffff47ab1d95a081b269a,
     type: 2}
   m_PrefabInternal: {fileID: 1972002970}
+--- !u!1 &2058461525 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1343126195422494, guid: 6bb00c13de5e32f42a7527006c832716,
+    type: 2}
+  m_PrefabInternal: {fileID: 1154347498}
 --- !u!198 &2064363450
 ParticleSystem:
   m_ObjectHideFlags: 0
