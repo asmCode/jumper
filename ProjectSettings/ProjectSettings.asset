@@ -6,11 +6,11 @@ PlayerSettings:
   serializedVersion: 12
   productGUID: ff6950d3f86572345a41ad3b8b45f951
   AndroidProfiler: 0
-  defaultScreenOrientation: 4
+  defaultScreenOrientation: 0
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Semi-Serious Games
+  companyName: Semi-Serious_Games
   productName: Jumper2
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -141,7 +141,7 @@ PlayerSettings:
   targetPixelDensity: 0
   resolutionScalingMode: 0
   applicationIdentifier:
-    Android: com.Company.ProductName
+    Android: com.Company.LaserEScape
     Standalone: unity.Semi-Serious Games.Jumper2
     Tizen: com.Company.ProductName
     iOS: com.semiseriousgames.jumper2
@@ -224,7 +224,7 @@ PlayerSettings:
   androidSplashScreen: {fileID: 0}
   AndroidKeystoreName: 
   AndroidKeyaliasName: 
-  AndroidTVCompatibility: 1
+  AndroidTVCompatibility: 0
   AndroidIsGame: 1
   androidEnableBanner: 1
   m_AndroidBanners:
@@ -597,9 +597,9 @@ PlayerSettings:
     UNet: 1
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
-  cloudProjectId: 5e8063e4-bddc-4e48-933b-1e6d1902058d
-  projectName: Jumper
-  organizationId: majakthecoder
+  cloudProjectId: 5da17186-bde4-452c-9898-fe81f71e13ef
+  projectName: Jumper2
+  organizationId: booster_dragon
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
