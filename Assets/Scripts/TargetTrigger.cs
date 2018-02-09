@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class TargetTrigger : MonoBehaviour {
 
-	public float delayTime = 0.0f;
 	public Transform vanishEffect;
 	public UnityEvent OnHit;
 
@@ -14,8 +13,8 @@ public class TargetTrigger : MonoBehaviour {
 	public void NotifyHit()
 	{
 		OnHit.Invoke();
-		Gate.transform.GetChild(1).GetComponent<GateAnimation>().GateOpener(true);
-		Gate.transform.GetChild(2).gameObject.SetActive(false);
+		Gate.GetComponent<GateParams>().doors.GetComponent<GateAnimation>().GateOpener(true);
+		Gate.GetComponent<GateParams>().doorsCollider.SetActive(false);
 		vanishEffect.gameObject.SetActive (true);
 		this.gameObject.SetActive (false);
 	}

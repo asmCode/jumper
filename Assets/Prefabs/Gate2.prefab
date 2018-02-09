@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 4811453234161638}
   - component: {fileID: 95952242489945636}
   - component: {fileID: 82524021278234808}
+  - component: {fileID: 114143969182120504}
   m_Layer: 0
   m_Name: Gate2
   m_TagString: Untagged
@@ -374,7 +375,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -421,6 +422,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114143969182120504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1343126195422494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185dfabc3b6c71941b46195d189a9c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doors: {fileID: 1073040237852276}
+  doorsCollider: {fileID: 1157884352801206}
 --- !u!114 &114165718696540032
 MonoBehaviour:
   m_ObjectHideFlags: 1
