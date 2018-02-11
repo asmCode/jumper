@@ -786,6 +786,10 @@ Prefab:
       propertyPath: m_Name
       value: Pendulum (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
   m_IsPrefabParent: 0
@@ -7811,6 +7815,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1942698294799732, guid: 42256b172be2bda49b537772a624c426, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 42256b172be2bda49b537772a624c426, type: 2}
   m_IsPrefabParent: 0
@@ -9751,6 +9759,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
   m_IsPrefabParent: 0
@@ -11564,6 +11576,10 @@ Prefab:
     - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
       propertyPath: m_Name
       value: Pendulum (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
@@ -14372,6 +14388,10 @@ Prefab:
     - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
       propertyPath: m_Name
       value: Pendulum (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
@@ -22241,9 +22261,9 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 1
-  BypassListenerEffects: 1
-  BypassReverbZones: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -24701,6 +24721,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
+        type: 2}
+      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4115122019757114, guid: 9868a570146e6684da049055e36cfaf6, type: 2}
       propertyPath: m_LocalPosition.x
       value: -80.74
@@ -24856,6 +24881,35 @@ Prefab:
     - target: {fileID: 4871590084923182, guid: 9868a570146e6684da049055e36cfaf6, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
+        type: 2}
+      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
+        type: 2}
+      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
+        type: 2}
+      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1029957586}
+    - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
+        type: 2}
+      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 114702684490662810, guid: 9868a570146e6684da049055e36cfaf6,
+        type: 2}
+      propertyPath: OnDied.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1436578362238300, guid: 9868a570146e6684da049055e36cfaf6, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9868a570146e6684da049055e36cfaf6, type: 2}
@@ -67473,6 +67527,10 @@ Prefab:
     - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
       propertyPath: m_Name
       value: Pendulum (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438886512811810, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27af33a943fd22d4ebf7291b8dda9e7a, type: 2}

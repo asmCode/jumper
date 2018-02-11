@@ -9,6 +9,8 @@ public class Dude2 : MonoBehaviour
 
     private static Vector3 GravityVector = new Vector3(0, -9.8f, 0);
 
+	public AudioSource gameMusic;
+	public GameObject pausePanel;
     public UnityEvent OnScoredPlatform;
     public UnityEvent OnDied;
 
@@ -35,7 +37,9 @@ public class Dude2 : MonoBehaviour
 
     public JumpPointView m_firstJumpPoint;
 
-    private float m_horizontalSpeed;
+	private bool gamePaused;
+
+	private float m_horizontalSpeed;
     private float m_horizontalDistance;
     private Vector3 m_horizontalDirection;
 
@@ -81,7 +85,8 @@ public class Dude2 : MonoBehaviour
 
     private void Init()
     {
-        m_prevPlatform = m_firstJumpPoint;
+		gamePaused = false;
+		m_prevPlatform = m_firstJumpPoint;
         m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().NextPlatform;
 
         transform.position = m_firstJumpPoint.Position + Vector3.up;
@@ -101,6 +106,7 @@ public class Dude2 : MonoBehaviour
             else
                 current = null;
         }
+		gameMusic.Play();
     }
 
     public void UiEvent_Reset()
@@ -166,6 +172,15 @@ public class Dude2 : MonoBehaviour
 				}
 			}
         }
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			if (gamePaused) {
+				gameLeave ();
+			} else {
+				gamePause ();
+			}
+		}
 
         if (!m_started)
             return;
@@ -289,4 +304,23 @@ public class Dude2 : MonoBehaviour
     {
         LookTargetSmooth = Vector3.SmoothDamp(LookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.4f);
     }
+
+	public void gamePause()
+	{
+		if (!gamePaused) {
+			pausePanel.SetActive (true);
+			Time.timeScale = 0.0f;
+			gameMusic.Pause();
+		} else {
+			pausePanel.SetActive (false);
+			Time.timeScale = 1.0f;
+			gameMusic.UnPause();
+		}
+		gamePaused = !gamePaused;
+	}
+
+	public void gameLeave()
+	{
+		SceneManager.LoadScene("Welcome");
+	}
 }
