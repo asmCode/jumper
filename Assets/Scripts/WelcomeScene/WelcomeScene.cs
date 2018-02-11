@@ -13,6 +13,13 @@ public class WelcomeScene : MonoBehaviour
 
 	AsyncOperation async;
 
+	public void Update()
+	{
+		if (Input.GetKeyDown (KeyCode.Escape)) {
+			Application.Quit ();
+		}
+	}
+
     public void UiEvent_StartPressed()
     {
 		StartCoroutine(LoadGame());
