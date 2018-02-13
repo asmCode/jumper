@@ -85,8 +85,9 @@ public class Dude2 : MonoBehaviour
 
     private void Init()
     {
-		gamePaused = false;
-		m_prevPlatform = m_firstJumpPoint;
+        Time.timeScale = 1.0f;
+        gamePaused = false;
+        m_prevPlatform = m_firstJumpPoint;
         m_nextPlatform = m_firstJumpPoint.GetComponent<PlatformJumpPointView>().NextPlatform;
 
         transform.position = m_firstJumpPoint.Position + Vector3.up;
