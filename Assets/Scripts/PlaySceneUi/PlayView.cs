@@ -7,6 +7,7 @@ public class PlayView : MonoBehaviour
 {
     public Text m_platformCountLabel;
     public GameObject m_gameOverPanel;
+    public GameObject m_winnerPanel;
 
     private int m_platformCount = 0;
     private int m_scoredPlatforms = 0;
@@ -28,9 +29,15 @@ public class PlayView : MonoBehaviour
         m_gameOverPanel.SetActive(true);
     }
 
+    public void ShowWinner()
+    {
+        m_winnerPanel.SetActive(true);
+    }
+
     private void Awake()
     {
         m_gameOverPanel.SetActive(false);
+        m_winnerPanel.SetActive(false);
     }
 
     private void UpdateView()

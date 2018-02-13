@@ -32,6 +32,11 @@ public class PlayViewPresenter : MonoBehaviour
         m_playView.SetScoredPlatform(m_dude.PlatformsScored);
     }
 
+    public void ShowWinnerPanel()
+    {
+        m_playView.ShowWinner();
+    }
+
     private int GetPlatformCount()
     {
         var trackGameObject = GameObject.Find("Track");

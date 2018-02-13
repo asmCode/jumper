@@ -49,6 +49,7 @@ public class Dude2 : MonoBehaviour
     private JumpPointView m_nextPlatform;
 
     private bool m_died;
+    private PlayViewPresenter m_playViewPresenter;
 
     public int PlatformsScored { get; private set; }
 
@@ -66,8 +67,8 @@ public class Dude2 : MonoBehaviour
     private void Awake()
     {
         var playViewPresenterGameObject = GameObject.Find("PlayView");
-        var playViewPresenter = playViewPresenterGameObject.GetComponent<PlayViewPresenter>();
-        playViewPresenter.RetryPressed.AddListener(() => { UiEvent_Reset(); });
+        m_playViewPresenter = playViewPresenterGameObject.GetComponent<PlayViewPresenter>();
+        m_playViewPresenter.RetryPressed.AddListener(() => { UiEvent_Reset(); });
 
         m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
         m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
@@ -270,9 +271,12 @@ public class Dude2 : MonoBehaviour
 
         platformJumpPoint.NotifyJump();
 
+        // We've reached the last platform.
         if (m_nextPlatform == null)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            m_playViewPresenter.ShowWinnerPanel();
+            Time.timeScale = 0.0f;
+            // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
         }
 
