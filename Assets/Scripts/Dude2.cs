@@ -10,6 +10,11 @@ public class Dude2 : MonoBehaviour
     private static Vector3 GravityVector = new Vector3(0, -9.8f, 0);
 
 	public AudioSource gameMusic;
+	public AudioSource dudeSFX;
+	public AudioClip sndJump;
+	public AudioClip sndPlatformNormal;
+	public AudioClip sndPlatformEject;
+	public AudioClip sndPlatformSlide;
 	public GameObject pausePanel;
     public UnityEvent OnScoredPlatform;
     public UnityEvent OnDied;
@@ -23,8 +28,8 @@ public class Dude2 : MonoBehaviour
     private float m_rollAngleSpeed;
     private Vector3 m_fallingDownVelocity;
 
-    private AudioSource m_soundJump;
-    private AudioSource m_soundLand;
+    //private AudioSource m_soundJump;
+    //private AudioSource m_soundLand;
 
     public bool m_autoJump = false;
 
@@ -70,8 +75,8 @@ public class Dude2 : MonoBehaviour
         m_playViewPresenter = playViewPresenterGameObject.GetComponent<PlayViewPresenter>();
         m_playViewPresenter.RetryPressed.AddListener(() => { UiEvent_Reset(); });
 
-        m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
-        m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
+        //m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
+        //m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
         m_dudeCamera = transform.Find("CameraAnimRoot").GetComponent<DureCamera>();
 
         if (m_firstJumpPoint == null)
@@ -148,7 +153,7 @@ public class Dude2 : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump))
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump)) && !gamePaused)
         {
             if (m_canJump)
             {
@@ -161,8 +166,7 @@ public class Dude2 : MonoBehaviour
                     AirJump();
 
                 m_canJump = false;
-            }
-			else{
+            }else{
 				UnityEngine.RaycastHit hit;
 				UnityEngine.Ray ray = HUDCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -212,7 +216,7 @@ public class Dude2 : MonoBehaviour
     {
         Jump(m_nextPlatform.NativePosition, 8.0f, 45.0f * Mathf.Deg2Rad);
 
-        m_soundJump.Play();
+		dudeSFX.PlayOneShot(sndJump);
 
         m_dudeCamera.PlayAirJumpAnimation();
     }
@@ -286,7 +290,18 @@ public class Dude2 : MonoBehaviour
 
         m_dudeCamera.PlayPlatformJumpAnimation();
 
-        m_soundLand.Play();
+		switch (collider.tag)
+		{
+		case "platformNormal":
+			dudeSFX.PlayOneShot(sndPlatformNormal);
+			break;
+		case "platformEject":
+			dudeSFX.PlayOneShot(sndPlatformEject);
+			break;
+		case "platformSlide":
+			dudeSFX.PlayOneShot(sndPlatformSlide);
+			break;
+		}
 
         m_canJump = true;
     }

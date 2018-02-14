@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Clickable
+  - platformNormal
+  - platformEject
+  - platformSlide
   layers:
   - Default
   - TransparentFX
