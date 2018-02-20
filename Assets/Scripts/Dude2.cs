@@ -148,6 +148,8 @@ public class Dude2 : MonoBehaviour
 
         if (transform.position.y < 0 && !m_died)
         {
+            GameAnalyticsSDK.GameAnalytics.NewProgressionEvent(GameAnalyticsSDK.GAProgressionStatus.Complete, "level 1", PlatformsScored);
+
             m_died = true;
             OnDied.Invoke();
             return;
@@ -161,6 +163,7 @@ public class Dude2 : MonoBehaviour
                 {
                     Jump(m_prevPlatform.NativePosition, 0.001f, 45.0f * Mathf.Deg2Rad);
                     m_started = true;
+                    GameAnalyticsSDK.GameAnalytics.NewProgressionEvent(GameAnalyticsSDK.GAProgressionStatus.Start, "level 1", 0);
                 }
                 else
                     AirJump();
