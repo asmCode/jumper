@@ -18,11 +18,11 @@ public class DureCamera : MonoBehaviour
 
     public void PlayAirJumpAnimation()
     {
-        m_animator.Play("AirJump", 0, 0);
+        // m_animator.Play("AirJump", 0, 0);
     }
 
     public void PlayPlatformJumpAnimation()
     {
-        m_animator.Play("PlatformJump", 0, 0);
+        // m_animator.Play("PlatformJump", 0, 0);
     }
 }

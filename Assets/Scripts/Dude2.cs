@@ -9,13 +9,6 @@ public class Dude2 : MonoBehaviour
 
     private static Vector3 GravityVector = new Vector3(0, -9.8f, 0);
 
-	public AudioSource gameMusic;
-	public AudioSource dudeSFX;
-	public AudioClip sndJump;
-	public AudioClip sndPlatformNormal;
-	public AudioClip sndPlatformEject;
-	public AudioClip sndPlatformSlide;
-	public GameObject pausePanel;
     public UnityEvent OnScoredPlatform;
     public UnityEvent OnDied;
 
@@ -27,6 +20,8 @@ public class Dude2 : MonoBehaviour
     private float m_rollAngle;
     private float m_rollAngleSpeed;
     private Vector3 m_fallingDownVelocity;
+
+    public TouchInput m_touchInput;
 
     //private AudioSource m_soundJump;
     //private AudioSource m_soundLand;
@@ -42,9 +37,9 @@ public class Dude2 : MonoBehaviour
 
     public JumpPointView m_firstJumpPoint;
 
-	private bool gamePaused;
+    private bool gamePaused;
 
-	private float m_horizontalSpeed;
+    private float m_horizontalSpeed;
     private float m_horizontalDistance;
     private Vector3 m_horizontalDirection;
 
@@ -54,14 +49,11 @@ public class Dude2 : MonoBehaviour
     private JumpPointView m_nextPlatform;
 
     private bool m_died;
-    private PlayViewPresenter m_playViewPresenter;
 
     public int PlatformsScored { get; private set; }
 
     public JumpPointView PrevPlatform { get { return m_prevPlatform; } }
     public JumpPointView NextPlatform { get { return m_nextPlatform; } }
-
-	public Camera HUDCamera;
 
     // Use this for initialization
     void Start()
@@ -71,10 +63,6 @@ public class Dude2 : MonoBehaviour
 
     private void Awake()
     {
-        var playViewPresenterGameObject = GameObject.Find("PlayView");
-        m_playViewPresenter = playViewPresenterGameObject.GetComponent<PlayViewPresenter>();
-        m_playViewPresenter.RetryPressed.AddListener(() => { UiEvent_Reset(); });
-
         //m_soundJump = transform.Find("Jump").GetComponent<AudioSource>();
         //m_soundLand = transform.Find("Land").GetComponent<AudioSource>();
         m_dudeCamera = transform.Find("CameraAnimRoot").GetComponent<DureCamera>();
@@ -89,8 +77,12 @@ public class Dude2 : MonoBehaviour
         }
     }
 
+    private Vector3 lookDirection;
+
     private void Init()
     {
+        lookDirection = Vector3.right;
+
         Time.timeScale = 1.0f;
         gamePaused = false;
         m_prevPlatform = m_firstJumpPoint;
@@ -100,7 +92,9 @@ public class Dude2 : MonoBehaviour
 
         SetLookTarget(m_nextPlatform, m_nextPlatform);
         LookTargetSmooth = m_nextPlatform.Position;
-        transform.LookAt(LookTargetSmooth);
+        //transform.LookAt(LookTargetSmooth);
+        transform.forward = lookDirection;  
+
 
         var current = m_firstJumpPoint.GetComponent<PlatformJumpPointView>();
         while (current != null)
@@ -113,7 +107,6 @@ public class Dude2 : MonoBehaviour
             else
                 current = null;
         }
-		gameMusic.Play();
     }
 
     public void UiEvent_Reset()
@@ -126,6 +119,8 @@ public class Dude2 : MonoBehaviour
         if (m_died)
             return;
 
+        lookDirection = Quaternion.AngleAxis(Mathf.Rad2Deg * 2.0f * m_touchInput.Shift, Vector3.up) * lookDirection;
+
         if (m_isFallingDown)
         {
             var positon = transform.position;
@@ -134,7 +129,7 @@ public class Dude2 : MonoBehaviour
             transform.position = positon;
 
             Quaternion rollRotation = Quaternion.AngleAxis(m_rollAngleSpeed * Time.deltaTime, transform.forward);
-            transform.rotation = rollRotation * transform.rotation;
+            // transform.rotation = rollRotation * transform.rotation;
 
             if (transform.position.y < 0 && !m_died)
             {
@@ -155,7 +150,7 @@ public class Dude2 : MonoBehaviour
             return;
         }
 
-		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump)) && !gamePaused)
+        if ((Input.GetKeyDown(KeyCode.Space) || (!m_started && m_autoJump)) && !gamePaused)
         {
             if (m_canJump)
             {
@@ -169,27 +164,24 @@ public class Dude2 : MonoBehaviour
                     AirJump();
 
                 m_canJump = false;
-            }else{
-				UnityEngine.RaycastHit hit;
-				UnityEngine.Ray ray = HUDCamera.ScreenPointToRay(Input.mousePosition);
-
-				if (UnityEngine.Physics.Raycast(ray, out hit)) {
-					if (hit.transform.tag == "Clickable"){
-						var t_TargetTrigger = hit.transform.gameObject.GetComponent<TargetTrigger>();
-						t_TargetTrigger.NotifyHit();
-					}
-				}
-			}
+            }
+            else
+            {
+                UnityEngine.RaycastHit hit;
+            }
         }
 
-		if (Input.GetKeyDown(KeyCode.Escape))
-		{
-			if (gamePaused) {
-				gameLeave ();
-			} else {
-				gamePause ();
-			}
-		}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gamePaused)
+            {
+                gameLeave();
+            }
+            else
+            {
+                gamePause();
+            }
+        }
 
         if (!m_started)
             return;
@@ -204,7 +196,8 @@ public class Dude2 : MonoBehaviour
         UpdateSmoothLookTarget();
 
         transform.position = position;
-        transform.LookAt(LookTargetSmooth);
+        //transform.LookAt(LookTargetSmooth);
+        transform.forward = lookDirection;
 
         if (m_autoJump &&
             m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().AirJumpOnDistance &&
@@ -219,8 +212,6 @@ public class Dude2 : MonoBehaviour
     {
         Jump(m_nextPlatform.NativePosition, 8.0f, 45.0f * Mathf.Deg2Rad);
 
-		dudeSFX.PlayOneShot(sndJump);
-
         m_dudeCamera.PlayAirJumpAnimation();
     }
 
@@ -228,10 +219,11 @@ public class Dude2 : MonoBehaviour
     {
         m_jumpSpeed = speed;
         m_jumpAngle = angle;
-        
+
         m_jumpPosition = transform.position;
 
-        m_horizontalDirection = targetPlatformPosition - m_jumpPosition;
+        // m_horizontalDirection = targetPlatformPosition - m_jumpPosition;
+        m_horizontalDirection = lookDirection;
         m_horizontalDirection.y = 0.0f;
         m_horizontalDirection.Normalize();
 
@@ -281,7 +273,6 @@ public class Dude2 : MonoBehaviour
         // We've reached the last platform.
         if (m_nextPlatform == null)
         {
-            m_playViewPresenter.ShowWinnerPanel();
             Time.timeScale = 0.0f;
             // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             return;
@@ -293,18 +284,15 @@ public class Dude2 : MonoBehaviour
 
         m_dudeCamera.PlayPlatformJumpAnimation();
 
-		switch (collider.tag)
-		{
-		case "platformNormal":
-			dudeSFX.PlayOneShot(sndPlatformNormal);
-			break;
-		case "platformEject":
-			dudeSFX.PlayOneShot(sndPlatformEject);
-			break;
-		case "platformSlide":
-			dudeSFX.PlayOneShot(sndPlatformSlide);
-			break;
-		}
+        switch (collider.tag)
+        {
+            case "platformNormal":
+                break;
+            case "platformEject":
+                break;
+            case "platformSlide":
+                break;
+        }
 
         m_canJump = true;
     }
@@ -328,22 +316,12 @@ public class Dude2 : MonoBehaviour
         LookTargetSmooth = Vector3.SmoothDamp(LookTargetSmooth, m_lookTarget, ref m_lookTargetVelocity, 0.4f);
     }
 
-	public void gamePause()
-	{
-		if (!gamePaused) {
-			pausePanel.SetActive (true);
-			Time.timeScale = 0.0f;
-			gameMusic.Pause();
-		} else {
-			pausePanel.SetActive (false);
-			Time.timeScale = 1.0f;
-			gameMusic.UnPause();
-		}
-		gamePaused = !gamePaused;
-	}
+    public void gamePause()
+    {
+        gamePaused = !gamePaused;
+    }
 
-	public void gameLeave()
-	{
-		SceneManager.LoadScene("Welcome");
-	}
+    public void gameLeave()
+    {
+    }
 }
