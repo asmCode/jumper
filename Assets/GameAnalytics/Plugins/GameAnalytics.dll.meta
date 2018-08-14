@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 82b9e4657fbe94a6796d3330ed2c60bb
+guid: e185dadd9acc8487d8d4bb2936a243cc
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -40,31 +40,37 @@ PluginImporter:
   - first:
       Facebook: Win
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   - first:
       Facebook: Win64
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   - first:
-      Standalone: Linux
+      Samsung TV: SamsungTV
     second:
       enabled: 0
+      settings:
+        STV_MODEL: STANDARD_13
+  - first:
+      Standalone: Linux
+    second:
+      enabled: 1
       settings:
         CPU: x86
   - first:
       Standalone: Linux64
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: x86_64
   - first:
       Standalone: LinuxUniversal
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: None
   - first:
@@ -84,21 +90,43 @@ PluginImporter:
     second:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: None
   - first:
       Standalone: Win
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   - first:
       Standalone: Win64
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   - first:
+      Tizen: Tizen
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+        DontProcess: False
+        PlaceholderPath: 
+        SDK: UWP
+        ScriptingBackend: Il2Cpp
+  - first:
       iPhone: iOS
+    second:
+      enabled: 0
+      settings:
+        CompileFlags: 
+        FrameworkDependencies: 
+  - first:
+      tvOS: tvOS
     second:
       enabled: 0
       settings:

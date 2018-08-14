@@ -12,7 +12,11 @@ public class Physics
         float d = distance;
         float y = heightDifference;
 
-        return Mathf.Atan((v2 - Mathf.Sqrt(v2 * v2 - G * (G * d * d + 2 * y * v2))) / (G * d));
+        float sq = v2 * v2 - G * (G * d * d + 2 * y * v2);
+        if (sq < 0.0f)
+            return 0.0f;
+
+        return Mathf.Atan((v2 - Mathf.Sqrt(sq)) / (G * d));
     }
 
     public static float GetHeightAtDistance(float startY, float a, float d, float v)
@@ -57,5 +61,35 @@ public class Physics
     public static float GetDistanceAtTime(float time, float totalTime, float totalDistance)
     {
         return (time / totalTime) * totalDistance;
+    }
+
+    private static float GetRequiredSpeedInternal(float targetAngle, float distance, float heightDifference, float startSpeed, float speedStep)
+    {
+        if (speedStep < 0.01f)
+            return startSpeed;
+
+        float speed = startSpeed;
+        while (true)
+        {
+            speed += speedStep;
+
+            float angle = GetAngle(speed, distance, heightDifference);
+            if (angle > targetAngle)
+                return GetRequiredSpeedInternal(targetAngle, distance, heightDifference, speed - speedStep, speedStep / 2.0f);
+        }
+    }
+
+    public static float GetRequiredSpeed(float angle, float distance, float heightDifference)
+    {
+        // return GetRequiredSpeedInternal(angle, distance, heightDifference, 0.0f, 10.0f);
+
+        float x = distance;
+        float y = heightDifference;
+        float tan = Mathf.Tan(angle);
+        float cos = Mathf.Cos(angle);
+
+        float top = x * x * G;
+        float bottom = (2 * x * tan - 2 * y) * cos;
+        return Mathf.Sqrt(top / bottom);
     }
 }

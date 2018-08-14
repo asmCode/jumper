@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 82b9e4657fbe94a6796d3330ed2c60bb
+guid: 68544a0857d96482ca2440c0ffef392a
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -8,16 +8,6 @@ PluginImporter:
   isPreloaded: 0
   isOverridable: 0
   platformData:
-  - first:
-      '': OSXIntel
-    second:
-      enabled: 1
-      settings: {}
-  - first:
-      '': OSXIntel64
-    second:
-      enabled: 1
-      settings: {}
   - first:
       Android: Android
     second:
@@ -34,13 +24,13 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: x86
         DefaultValueInitialized: true
         OS: AnyOS
   - first:
       Facebook: Win
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   - first:
@@ -48,7 +38,7 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: None
   - first:
       Standalone: Linux
     second:
@@ -60,35 +50,35 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: x86_64
+        CPU: None
   - first:
       Standalone: LinuxUniversal
     second:
       enabled: 0
       settings:
-        CPU: None
+        CPU: x86
   - first:
       Standalone: OSXIntel
     second:
-      enabled: 1
+      enabled: 0
       settings:
         CPU: AnyCPU
   - first:
       Standalone: OSXIntel64
     second:
-      enabled: 1
+      enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: None
   - first:
       Standalone: OSXUniversal
     second:
-      enabled: 1
+      enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: x86
   - first:
       Standalone: Win
     second:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
   - first:
@@ -96,7 +86,17 @@ PluginImporter:
     second:
       enabled: 0
       settings:
-        CPU: AnyCPU
+        CPU: None
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 0
+      settings:
+        CPU: X64
+        DontProcess: False
+        PlaceholderPath: 
+        SDK: UWP
+        ScriptingBackend: AnyScriptingBackend
   - first:
       iPhone: iOS
     second:

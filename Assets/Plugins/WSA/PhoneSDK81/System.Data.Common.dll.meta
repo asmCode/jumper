@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 939603f428dd72b4faa6cf4691c1ae81
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+  - first:
+      Windows Store Apps: WindowsStoreApps
+    second:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
+        SDK: PhoneSDK81
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
