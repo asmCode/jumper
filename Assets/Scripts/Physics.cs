@@ -89,7 +89,7 @@ public class Physics
         float cos = Mathf.Cos(angle);
 
         float top = x * x * G;
-        float bottom = (2 * x * tan - 2 * y) * cos;
+        float bottom = (2 * x * tan - 2 * y) * cos * cos;
         return Mathf.Sqrt(top / bottom);
     }
 }

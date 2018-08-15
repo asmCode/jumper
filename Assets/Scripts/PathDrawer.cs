@@ -96,34 +96,19 @@ public class PathDrawer : MonoBehaviour
             if (drawOnly != null && drawOnly != child1.gameObject && drawOnly != child2.gameObject)
                 continue;
 
-            Vector3 jumpPoint;
-            float jumpTraDist = JumpResolver.GetOptimalJumpTrajectoryDistance(
-                platform1.Position,
-                platform1.GetJumpSpeed(),
-                platform1.GetJumpAngle(),
-                8.0f,
-                Mathf.PI / 4,
-                platform2.Position,
-                out jumpPoint);
+            var directionToNextPlatform = platform2.NativePosition - platform1.NativePosition;
+            var directionToNextPlatform2d = directionToNextPlatform;
+            directionToNextPlatform2d.y = 0;
+
+            float speed = Physics.GetRequiredSpeed(platform1.GetJumpAngle(), directionToNextPlatform2d.magnitude, directionToNextPlatform.y);
 
             DrawJumpTrajectory(
                 platform1.Position,
                 platform1.GetDirection2D(),
                 platform1.GetJumpAngle(),
-                platform1.GetJumpSpeed(),
+                speed,
                 Color.green,
-                jumpTraDist);
-
-            var targetDist = platform2.Position - jumpPoint;
-            targetDist.y = 0.0f;
-
-            DrawJumpTrajectory(
-                jumpPoint,
-                platform1.GetDirection2D(),
-                Mathf.PI / 4,
-                8.0f,
-                Color.yellow,
-                targetDist.magnitude);
+                directionToNextPlatform2d.magnitude);
 
             //Gizmos.color = Color.yellow;
             //Gizmos.DrawSphere(jumpPoint, 0.2f);

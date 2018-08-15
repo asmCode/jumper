@@ -156,12 +156,10 @@ public class Dude2 : MonoBehaviour
             {
                 if (!m_started)
                 {
-                    Jump(m_prevPlatform.NativePosition, 0.001f, 45.0f * Mathf.Deg2Rad);
+                    Jump(0.001f, 45.0f * Mathf.Deg2Rad);
                     m_started = true;
                     GameAnalyticsSDK.GameAnalytics.NewProgressionEvent(GameAnalyticsSDK.GAProgressionStatus.Start, "level 1", 0);
                 }
-                else
-                    AirJump();
 
                 m_canJump = false;
             }
@@ -173,14 +171,7 @@ public class Dude2 : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gamePaused)
-            {
-                gameLeave();
-            }
-            else
-            {
-                gamePause();
-            }
+            SceneManager.LoadScene("AimPrototype");
         }
 
         if (!m_started)
@@ -198,31 +189,15 @@ public class Dude2 : MonoBehaviour
         transform.position = position;
         //transform.LookAt(LookTargetSmooth);
         transform.forward = lookDirection;
-
-        if (m_autoJump &&
-            m_horizontalDistance >= m_prevPlatform.GetComponent<PlatformJumpPointView>().AirJumpOnDistance &&
-            m_canJump)
-        {
-            AirJump();
-            m_canJump = false;
-        }
     }
 
-    private void AirJump()
-    {
-        Jump(m_nextPlatform.NativePosition, 8.0f, 45.0f * Mathf.Deg2Rad);
-
-        m_dudeCamera.PlayAirJumpAnimation();
-    }
-
-    private void Jump(Vector3 targetPlatformPosition, float speed, float angle)
+    private void Jump(float speed, float angle)
     {
         m_jumpSpeed = speed;
         m_jumpAngle = angle;
 
         m_jumpPosition = transform.position;
 
-        // m_horizontalDirection = targetPlatformPosition - m_jumpPosition;
         m_horizontalDirection = lookDirection;
         m_horizontalDirection.y = 0.0f;
         m_horizontalDirection.Normalize();
@@ -280,7 +255,11 @@ public class Dude2 : MonoBehaviour
 
         SetLookTarget(m_prevPlatform, m_nextPlatform);
 
-        Jump(m_nextPlatform.NativePosition, m_prevPlatform.GetJumpSpeed(), m_prevPlatform.GetJumpAngle());
+        var direction = m_nextPlatform.NativePosition - transform.position;
+        var direction2d = new Vector2(direction.x, direction.z);
+        var speed = Physics.GetRequiredSpeed(m_prevPlatform.GetJumpAngle(), direction2d.magnitude, direction.y);
+
+        Jump(speed, m_prevPlatform.GetJumpAngle());
 
         m_dudeCamera.PlayPlatformJumpAnimation();
 

@@ -337,7 +337,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 50
+      value: 14.4
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -769,7 +769,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 45
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1799253918226236, guid: 42256b172be2bda49b537772a624c426, type: 2}
       propertyPath: m_IsActive
@@ -885,7 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526e769ad48ff3945b211dfbc7474393, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_drawMode: 1
+  m_drawMode: 2
 --- !u!198 &599836644 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198560588686012076, guid: 42256b172be2bda49b537772a624c426,
@@ -1047,7 +1047,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 64.44
+      value: 49.7
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
         type: 2}
@@ -1186,7 +1186,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 50
+      value: 12.3
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -1280,6 +1280,14 @@ Prefab:
     - target: {fileID: 1374602334811088, guid: 42256b172be2bda49b537772a624c426, type: 2}
       propertyPath: m_TagString
       value: platformNormal
+      objectReference: {fileID: 0}
+    - target: {fileID: 4953627086550266, guid: 42256b172be2bda49b537772a624c426, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.000013452484
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286070215001680, guid: 42256b172be2bda49b537772a624c426, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -0.000013452484
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42256b172be2bda49b537772a624c426, type: 2}
@@ -1516,7 +1524,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 45
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -2419,7 +2427,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 55
+      value: 69.5
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -7424,7 +7432,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 50
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 5ca6e2296abf50f4f95d8706516e253a,
         type: 2}
@@ -7923,7 +7931,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 55
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -8063,7 +8071,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 55
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
@@ -8702,7 +8710,7 @@ Prefab:
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
       propertyPath: m_jumpAngle
-      value: 54.83
+      value: 49.65
       objectReference: {fileID: 0}
     - target: {fileID: 114669046348760116, guid: 42256b172be2bda49b537772a624c426,
         type: 2}
