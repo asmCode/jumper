@@ -116,6 +116,11 @@ public class Dude2 : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("AimPrototype");
+        }
+
         if (m_died)
             return;
 
@@ -167,11 +172,6 @@ public class Dude2 : MonoBehaviour
             {
                 UnityEngine.RaycastHit hit;
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("AimPrototype");
         }
 
         if (!m_started)
